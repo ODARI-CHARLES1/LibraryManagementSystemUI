@@ -43,30 +43,30 @@ const Sidebar = () => {
 
         <div className="w-full">
           <ul className="w-full flex items-start justify-between flex-col gap-1">
-            <li className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
+            <li  onClick={()=>setCollapse(false)} className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
               {" "}
               <MdDashboard className="size-5" /> {collapse ? "" : "Dashboard"}
             </li>
-            <li className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
+            <li onClick={()=>setCollapse(false)} className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
               {" "}
               <MdLibraryBooks className="size-5" /> {collapse ? "" : "Books"}
             </li>
-            <li className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
+            <li onClick={()=>setCollapse(false)} className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
               {" "}
               <RiAdminFill className="size-5" />
               {collapse ? "" : "Admins"}
             </li>
-            <li className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
+            <li onClick={()=>setCollapse(false)} className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
               {" "}
               <FaUsers className="size-5" />
               {collapse ? "" : "Users"}
             </li>
-            <li className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
+            <li onClick={()=>setCollapse(false)} className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
               {" "}
               <IoIosNotifications className="size-5" />
               {collapse ? "" : "Notifications"}
             </li>
-            <li className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
+            <li onClick={()=>setCollapse(false)} className="flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-[#73BC75]">
               {" "}
               <VscRecordSmall className="size-5" /> {collapse ? "" : "Records"}
             </li>
