@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { IoIosNotifications } from "react-icons/io";
 import appContext from "../Contexts/AppContext";
+import { HiMiniBuildingLibrary } from "react-icons/hi2";
 
 const Navbar = () => {
   const { selectActive, setSelectActive, period, setPeriod } =
@@ -15,8 +16,15 @@ const Navbar = () => {
   };
   console.log(period);
   return (
-    <div className="w-full bg-white h-15 4 py-4 px-6 flex items-center justify-between">
-      <div className="h-10 p-2 w-1/5 flex border-gray-300 border-2 rounded-full items-center justify-center">
+    <div className="w-full shadow-md shadow-green-100 bg-white h-15 4 py-4 px-3 flex items-center justify-between">
+      <div className=" px-4 lg:w-1/6 flex items-center gap-1">
+                <HiMiniBuildingLibrary className="size-6 text-green-400" />
+                <h1 className="text-2xl font-semibold text-[#313131]">
+                  Library System
+                </h1>
+      </div>
+     <div className="lg:w-5/6 flex justify-between items-center ">
+       <div className="h-10 p-2 w-1/5 flex border-gray-300 border-2 rounded-full items-center justify-center">
         <input
           className="w-full appearance-none outline-0 text-base p-2 rounded-full  h-full"
           placeholder="Search"
@@ -71,6 +79,7 @@ const Navbar = () => {
           <p className="hover:text-green-400 cursor-pointer">Odari</p>
         </div>
       </div>
+     </div>
     </div>
   );
 };
