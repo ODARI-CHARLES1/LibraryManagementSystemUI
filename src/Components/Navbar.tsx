@@ -66,7 +66,7 @@ const Navbar = () => {
         <div>
           <IoIosNotifications className="size-5 hover:text-green-400 cursor-pointer text-[#6b6b6b]" />
         </div>
-        <div className="w-12 h-12 p-1 cursor-pointer border-2 rounded-full border-green-400">
+        <div className="w-10 h-10 p-1 cursor-pointer border-2 rounded-full border-green-400">
           <img
             className="w-full  h-full rounded-full"
             src="https://i.pinimg.com/736x/5e/87/00/5e8700424201eb225c9a7dea4c3ec7f4.jpg"
