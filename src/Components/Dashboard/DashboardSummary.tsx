@@ -1,5 +1,5 @@
 
-import DashboardSummaryHeader from "../DashboardSummaryHeader";
+import DashboardSummaryHeader from "./DashboardSummaryHeader";
 import DashboardSummaryTable from "./DashboardSummaryTable";
 import DashboardVisualise from "./DashboardVisualise";
 const DashboardSummary = () => {
