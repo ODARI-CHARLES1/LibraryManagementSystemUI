@@ -1,5 +1,5 @@
-import BasicPie from "./PieChart";
-import BiaxialLineChart from './LineChart'
+import BasicPie from "../Charts/PieChart";
+import BiaxialLineChart from '../Charts/LineChart'
 const DashboardVisualise = () => {
   return (
      <div className="w-full flex flex-col lg:flex-row gap-3 md:gap-5 items-stretch">

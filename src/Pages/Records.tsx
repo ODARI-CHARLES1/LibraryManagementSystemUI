@@ -1,5 +1,5 @@
-import Sidebar from '../Components/Sidebar';
-import Navbar from '../Components/Navbar';
+import Sidebar from '../Components/Sidebar/Sidebar';
+import Navbar from '../Components/Navbar/Navbar';
 
 const Records = ({ embedded = false }: { embedded?: boolean }) => {
   return (

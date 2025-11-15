@@ -8,7 +8,7 @@ import { IoHelp } from "react-icons/io5";
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 import { TbLayoutSidebarRightCollapseFilled } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
-import appContext from "../Contexts/AppContext";
+import appContext from "../../Contexts/AppContext";
 import { useContext } from "react";
 
 const Sidebar = () => {

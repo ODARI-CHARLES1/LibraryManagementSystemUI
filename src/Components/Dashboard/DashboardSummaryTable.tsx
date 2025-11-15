@@ -1,4 +1,4 @@
-import ReactVirtualizedTable from './Table'
+import ReactVirtualizedTable from '../Tables/Table'
 import { LuListFilter } from "react-icons/lu";
 const DashboardSummaryTable = () => {
   return (

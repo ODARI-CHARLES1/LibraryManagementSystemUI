@@ -3,10 +3,10 @@ import { IoIosNotifications } from "react-icons/io";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import { HiMenu } from "react-icons/hi";
-import appContext from "../Contexts/AppContext";
+import appContext from "../../Contexts/AppContext";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
-import UserProfile from "./UserProfile";
+import UserProfile from "../Profile/UserProfile";
 
 const Navbar = () => {
   const { selectActive, setSelectActive, period, setPeriod, theme, setTheme, setIsAuthenticated, mobileMenuOpen, setMobileMenuOpen,profilePop,setProfilePop } =

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import Sidebar from '../Components/Sidebar';
-import Navbar from '../Components/Navbar';
+import Sidebar from '../Components/Sidebar/Sidebar';
+import Navbar from '../Components/Navbar/Navbar';
 import appContext from '../Contexts/AppContext';
 
 const Settings = ({ embedded = false }: { embedded?: boolean }) => {

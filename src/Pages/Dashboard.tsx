@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import Sidebar from '../Components/Sidebar'
-import Navbar from '../Components/Navbar'
-import DashboardSummary from '../Components/DashboardSummary'
+import Sidebar from '../Components/Sidebar/Sidebar'
+import Navbar from '../Components/Navbar/Navbar'
+import DashboardSummary from '../Components/Dashboard/DashboardSummary'
 import Books from './Books'
 import Users from './Users'
 import Admins from './Admins'
