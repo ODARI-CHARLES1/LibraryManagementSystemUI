@@ -1,11 +1,17 @@
 import { useContext } from "react";
 import { IoIosNotifications } from "react-icons/io";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { FiLogOut } from "react-icons/fi";
+import { HiMenu } from "react-icons/hi";
 import appContext from "../Contexts/AppContext";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
+import UserProfile from "./UserProfile";
 
 const Navbar = () => {
-  const { selectActive, setSelectActive, period, setPeriod } =
+  const { selectActive, setSelectActive, period, setPeriod, theme, setTheme, setIsAuthenticated, mobileMenuOpen, setMobileMenuOpen,profilePop,setProfilePop } =
     useContext(appContext);
+  const navigate = useNavigate();
   const handleClickSelectActive = () => {
     setSelectActive(true);
   };
@@ -14,48 +20,70 @@ const Navbar = () => {
     setPeriod(JSON.stringify(localStorage.getItem("Period")));
     setSelectActive(false);
   };
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('currentUser');
+    setIsAuthenticated(false);
+    navigate('/login');
+  };
   console.log(period);
   return (
-    <div className="w-full shadow-md shadow-green-100 bg-white h-15 4 py-4 px-3 flex items-center justify-between">
-      <div className=" px-4 lg:w-1/6 flex items-center gap-1">
-                <HiMiniBuildingLibrary className="size-6 text-green-400" />
-                <h1 className="text-2xl font-semibold text-[#313131]">
-                  Library System
-                </h1>
+    <div className="w-full relative shadow-md shadow-green-100 bg-white py-3 md:py-4 px-3 md:px-4 flex items-center justify-between transition-colors">
+      <div className="flex items-center gap-2 md:gap-4">
+        <button 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="lg:hidden p-2 hover:bg-gray-100 rounded-md"
+        >
+          <HiMenu className="size-6 text-gray-700" />
+        </button>
+        <div className="flex items-center gap-1 md:gap-2">
+          <HiMiniBuildingLibrary className="size-5 md:size-6 text-green-400" />
+          <h1 className="text-lg md:text-2xl font-semibold text-[#313131]">
+            <span className="hidden sm:inline">Library System</span>
+            <span className="sm:hidden">Library</span>
+          </h1>
+        </div>
       </div>
-     <div className="lg:w-5/6 flex justify-between items-center ">
-       <div className="h-10 p-2 w-1/5 flex border-gray-300 border-2 rounded-full items-center justify-center">
+     
+     <div className="flex justify-end items-center gap-2 md:gap-4 flex-1">
+       <div className="hidden md:flex h-10 p-2 w-full max-w-xs border-gray-300 border-2 rounded-full items-center">
         <input
-          className="w-full appearance-none outline-0 text-base p-2 rounded-full  h-full"
+          className="w-full appearance-none outline-0 text-base p-2 rounded-full h-full bg-transparent text-gray-900 placeholder-gray-500"
           placeholder="Search"
-          type="search"
+          type="text"
         />
       </div>
-      <div className="flex items-center  gap-4">
-        <div className="relative inline-block">
+      
+      <div className="flex items-center gap-2 md:gap-4">
+        <div className="hidden md:block relative">
           <button
             onClick={() => handleClickSelectActive()}
-            className="border-2 border-gray-300 rounded-full px-3 py-1"
+            className="border-2 border-gray-300 rounded-full px-3 py-1 text-sm text-gray-900 whitespace-nowrap"
           >
             {period.slice(1, -1)}
           </button>
           {selectActive && (
-            <ul className="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-xl shadow">
+            <ul className="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-xl shadow-lg z-50">
               <li
                 onClick={() => handleClickSetPeriod("6 months")}
-                className="px-3 py-1 hover:bg-green-400 hover:text-white  cursor-pointer rounded-t-xl"
+                className="px-3 py-2 hover:bg-green-400 hover:text-white cursor-pointer rounded-t-xl text-gray-900"
               >
                 6 months
               </li>
               <li
                 onClick={() => handleClickSetPeriod("12 months")}
-                className="px-3 py-1 hover:bg-green-400 hover:text-white cursor-pointer"
+                className="px-3 py-2 hover:bg-green-400 hover:text-white cursor-pointer text-gray-900"
               >
                 12 months
               </li>
               <li
                 onClick={() => handleClickSetPeriod("24 months")}
-                className="px-3 py-1 hover:bg-green-400 hover:text-white cursor-pointer rounded-b-xl"
+                className="px-3 py-2 hover:bg-green-400 hover:text-white cursor-pointer rounded-b-xl text-gray-900"
               >
                 24 months
               </li>
@@ -63,25 +91,56 @@ const Navbar = () => {
           )}
         </div>
 
-        <div>
+        <div className="hidden sm:block">
           <IoIosNotifications className="size-5 hover:text-green-400 cursor-pointer text-[#6b6b6b]" />
         </div>
-        <div className="w-10 h-10 p-1 cursor-pointer border-2 rounded-full border-green-400">
+        
+        <div>
+          <button onClick={toggleTheme} className="p-1 hover:bg-gray-100 rounded">
+            {theme === 'light' ? <MdDarkMode className="size-5 text-[#6b6b6b]" /> : <MdLightMode className="size-5 text-[#6b6b6b]" />}
+          </button>
+        </div>
+        
+        <div onClick={()=>setProfilePop(!profilePop)} className="w-8 h-8 md:w-10 md:h-10 p-1 cursor-pointer border-2 rounded-full border-green-400">
           <img
-            className="w-full  h-full rounded-full"
+            className="w-full h-full rounded-full"
             src="https://i.pinimg.com/736x/5e/87/00/5e8700424201eb225c9a7dea4c3ec7f4.jpg"
             alt="profile image"
           />
+         
         </div>
-        <div className="flex items-center gap-2">
-          <p className="cursor-pointer hover:text-green-400">Admin</p>
-          <p className="text-green-400 cursor-pointer hover:text-black">|</p>
-          <p className="hover:text-green-400 cursor-pointer">Odari</p>
-        </div>
+        
+        <div className="hidden lg:flex items-center gap-2">
+           <p className="cursor-pointer hover:text-green-400 text-sm">Admin</p>
+           <p className="text-green-400 cursor-pointer hover:text-black">|</p>
+           <p className="hover:text-green-400 cursor-pointer text-sm">Odari</p>
+         </div>
+         
+         <button
+           onClick={handleLogout}
+           className="hidden md:flex items-center gap-2 px-3 py-1 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+         >
+           <FiLogOut className="size-4" />
+           <span className="text-sm">Logout</span>
+         </button>
+         
+         <button
+           onClick={handleLogout}
+           className="md:hidden p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+           title="Logout"
+         >
+           <FiLogOut className="size-5" />
+         </button>
       </div>
      </div>
+     {
+      profilePop &&  <div className='absolute top-19 right-5 z-10'>
+            <UserProfile/>
+          </div>
+     }
     </div>
   );
 };
 
 export default Navbar;
+
