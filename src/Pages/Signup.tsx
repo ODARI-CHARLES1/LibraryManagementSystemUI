@@ -1,98 +1,127 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import appContext from '../Contexts/AppContext';
-import { HiMiniBuildingLibrary } from 'react-icons/hi2';
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import appContext from "../Contexts/AppContext";
+import { HiMiniBuildingLibrary } from "react-icons/hi2";
+import * as yup from "yup";
+import { useForm} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+interface RegisterUser {
+  username: string;
+  email: string;
+  password: string;
+  confirm: string;
+}
 
 const Signup = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
   const { setIsAuthenticated } = useContext(appContext);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-    // Mock registration - in real app, this would be API call
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const existingUser = users.find((u: any) => u.email === email);
-    if (existingUser) {
-      setError('User already exists');
-      return;
-    }
-    const newUser = { email, password };
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-    localStorage.setItem('currentUser', JSON.stringify(newUser));
+  const registerSchema = yup.object({
+    username: yup.string().required("Full Name is required"),
+    email: yup
+      .string()
+      .matches(
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        "Enter a valid email"
+      )
+      .required("Email is required"),
+    password: yup
+      .string()
+      .min(4, "Password must be at least 4 characters")
+      .required("Enter password"),
+    confirm: yup
+      .string()
+      .oneOf([yup.ref("password")], "Passwords must match")
+      .required("Confirm your password"),
+  }).required();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterUser>({
+    resolver: yupResolver(registerSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      confirm: "",
+    },
+  });
+
+  const onSubmit: SubmitHandler<RegisterUser> = (data) => {
+    console.log("Registration Data:", data);
     setIsAuthenticated(true);
-    navigate('/dashboard');
+    navigate("/dashboard");
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <div className="text-center mb-8">
-          <HiMiniBuildingLibrary className="size-12 text-green-400 mx-auto mb-4" />
-          <h1 className="text-3xl font-semibold text-[#313131]">Library System</h1>
+          <HiMiniBuildingLibrary className="text-4xl text-green-400 mx-auto mb-4" />
+          <h1 className="text-3xl font-semibold text-[#313131]">
+            Library System
+          </h1>
           <p className="text-gray-600 mt-2">Create your account</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-              {error}
-            </div>
-          )}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium mb-2">Full Names</label>
+            <input
+              type="text"
+              {...register("username")}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+            />
+            {errors.username && (
+              <p className="text-red-500 text-sm">{errors.username.message}</p>
+            )}
+          </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              Email
-            </label>
+            <label className="block text-sm font-medium mb-2">Email</label>
             <input
               type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
-              required
+              {...register("email")}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-              Password
-            </label>
+            <label className="block text-sm font-medium mb-2">Password</label>
             <input
               type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
-              required
+              {...register("password")}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium mb-2">
               Confirm Password
             </label>
             <input
               type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
-              required
+              {...register("confirm")}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
             />
+            {errors.confirm && (
+              <p className="text-red-500 text-sm">{errors.confirm.message}</p>
+            )}
           </div>
 
           <button
             type="submit"
-            className="w-full bg-green-400 text-white py-2 px-4 rounded-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 transition-colors"
+            className="w-full bg-green-400 text-white py-2 rounded-md hover:bg-green-500"
           >
             Sign Up
           </button>
@@ -100,10 +129,10 @@ const Signup = () => {
 
         <div className="mt-6 text-center">
           <p className="text-gray-600">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <button
-              onClick={() => navigate('/login')}
-              className="text-green-400 hover:text-green-500 font-medium"
+              onClick={() => navigate("/login")}
+              className="text-green-500 font-medium"
             >
               Sign in
             </button>
