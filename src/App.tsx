@@ -31,9 +31,11 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 };
 
 const App = () => {
+  const { theme } = useContext(appContext);
+  
   return (
     <Router>
-      <div className="bg-gray-100 h-screen transition-colors">
+      <div className={`h-screen transition-colors ${theme === "light" ? "bg-gray-100" : "bg-gray-950"}`}>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
