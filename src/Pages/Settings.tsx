@@ -18,13 +18,13 @@ const Settings = ({ embedded = false }: { embedded?: boolean }) => {
       <div className='w-full flex gap-5'>
         {!embedded && <Sidebar />}
         <div className="w-full flex overflow-y-auto overflow-x-hidden items-start flex-col lg:flex-nowrap flex-wrap gap-5 p-8">
-          <h1 className="text-3xl font-semibold text-[#313131]">Settings</h1>
-          <div className="w-full bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Appearance</h2>
+          <h1 className={`text-3xl font-semibold ${theme === "light" ? "text-[#313131]" : "text-gray-100"}`}>Settings</h1>
+          <div className={`w-full p-6 rounded-lg shadow-md ${theme === "light" ? "bg-white" : "bg-gray-800"}`}>
+            <h2 className={`text-xl font-semibold mb-4 ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Appearance</h2>
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-medium">Theme</h3>
-                <p className="text-gray-600">Choose your preferred theme</p>
+                <h3 className={`text-lg font-medium ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Theme</h3>
+                <p className={theme === "light" ? "text-gray-600" : "text-gray-400"}>Choose your preferred theme</p>
               </div>
               <button
                 onClick={toggleTheme}
@@ -34,7 +34,7 @@ const Settings = ({ embedded = false }: { embedded?: boolean }) => {
               </button>
             </div>
             <div className="mt-4">
-              <p className="text-sm text-gray-500">Current theme: {theme}</p>
+              <p className={`text-sm ${theme === "light" ? "text-gray-500" : "text-gray-400"}`}>Current theme: {theme}</p>
             </div>
           </div>
         </div>

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import Navbar from '../Components/Navbar/Navbar';
+import appContext from '../Contexts/AppContext';
 
 interface Book {
   bookId: number;
@@ -33,7 +34,9 @@ const bookSchema = yup.object({
 
 type BookFormInputs = Omit<Book, 'bookId'>;
 
+
 const Books = ({ embedded = false }: { embedded?: boolean }) => {
+  const { theme } = useContext(appContext);
   const [books, setBooks] = useState<Book[]>([
     {
       bookId: 1,
@@ -135,7 +138,7 @@ const Books = ({ embedded = false }: { embedded?: boolean }) => {
         <div className="w-full flex overflow-y-auto overflow-x-hidden items-start flex-col lg:flex-nowrap flex-wrap gap-5 p-8">
 
           <div className="w-full flex justify-between items-center">
-            <h1 className="text-3xl font-semibold text-[#313131]">Books Management</h1>
+            <h1 className={`text-3xl font-semibold ${theme === "light" ? "text-[#313131]" : "text-gray-100"}`}>Books Management</h1>
             <button
               onClick={() => {
                 reset();
@@ -149,8 +152,8 @@ const Books = ({ embedded = false }: { embedded?: boolean }) => {
           </div>
 
           {showForm && (
-            <div className="w-full bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4">
+            <div className={`w-full p-6 rounded-lg shadow-md ${theme === "light" ? "bg-white" : "bg-gray-800"}`}>
+              <h2 className={`text-xl font-semibold mb-4 ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>
                 {editingBook ? 'Edit Book' : 'Add New Book'}
               </h2>
 
@@ -158,7 +161,7 @@ const Books = ({ embedded = false }: { embedded?: boolean }) => {
                 <div className="grid grid-cols-2 gap-4">
                   {fields.map((name) => (
                     <div key={name}>
-                      <label className="block text-sm font-medium text-gray-700 mb-2 capitalize">
+                      <label className={`block text-sm font-medium mb-2 capitalize ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>
                         {name.replace('_', ' ')}
                       </label>
 
@@ -182,7 +185,7 @@ const Books = ({ embedded = false }: { embedded?: boolean }) => {
                               onBlur={field.onBlur}
                               name={field.name}
                               ref={field.ref}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 ${theme === "light" ? "border-gray-300 bg-white text-gray-900" : "border-gray-600 bg-gray-700 text-gray-100"}`}
                               onWheel={(e) => e.currentTarget.blur()}
                             />
                           );
@@ -208,7 +211,7 @@ const Books = ({ embedded = false }: { embedded?: boolean }) => {
                         />
                       )}
                     />
-                    <label className="text-sm font-medium text-gray-700">Available</label>
+                    <label className={`text-sm font-medium ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>Available</label>
                   </div>
                 </div>
 
@@ -231,31 +234,31 @@ const Books = ({ embedded = false }: { embedded?: boolean }) => {
             </div>
           )}
 
-          <div className="w-full bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Books List</h2>
+          <div className={`w-full p-6 rounded-lg shadow-md ${theme === "light" ? "bg-white" : "bg-gray-800"}`}>
+            <h2 className={`text-xl font-semibold mb-4 ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Books List</h2>
 
             <div className="overflow-x-auto">
               <table className="w-full table-auto">
                 <thead>
-                  <tr className="bg-gray-50">
-                    <th className="px-4 py-2 text-left">Title</th>
-                    <th className="px-4 py-2 text-left">Author</th>
-                    <th className="px-4 py-2 text-left">Publication Year</th>
-                    <th className="px-4 py-2 text-left">Category</th>
-                    <th className="px-4 py-2 text-left">Quantity</th>
-                    <th className="px-4 py-2 text-left">Available</th>
-                    <th className="px-4 py-2 text-left">Actions</th>
+                  <tr className={theme === "light" ? "bg-gray-50" : "bg-gray-700"}>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Title</th>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Author</th>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Publication Year</th>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Category</th>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Quantity</th>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Available</th>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Actions</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {books.map((book) => (
-                    <tr key={book.bookId} className="border-t">
-                      <td className="px-4 py-2">{book.title}</td>
-                      <td className="px-4 py-2">{book.author}</td>
-                      <td className="px-4 py-2">{book.publication_year}</td>
-                      <td className="px-4 py-2">{book.category}</td>
-                      <td className="px-4 py-2">{book.stock_quantity}</td>
+                    <tr key={book.bookId} className={theme === "light" ? "border-t" : "border-t border-gray-700"}>
+                      <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>{book.title}</td>
+                      <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>{book.author}</td>
+                      <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>{book.publication_year}</td>
+                      <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>{book.category}</td>
+                      <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>{book.stock_quantity}</td>
 
                       <td className="px-4 py-2">
                         <span

@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import Navbar from '../Components/Navbar/Navbar';
 import { LuListFilter } from "react-icons/lu";
 import { userApi } from "../Features/Auth/userApi";
+import appContext from '../Contexts/AppContext';
 
 interface User {
   id: number;
@@ -14,7 +15,7 @@ interface User {
 }
 
 const Users = ({ embedded = false }: { embedded?: boolean }) => {
-
+  const { theme } = useContext(appContext);
   const [createUser] = userApi.useCreateUserMutation();
 
   const [users, setUsers] = useState<User[]>([]);
@@ -110,7 +111,7 @@ const Users = ({ embedded = false }: { embedded?: boolean }) => {
         <div className="w-full flex overflow-y-auto overflow-x-hidden items-start flex-col lg:flex-nowrap flex-wrap gap-5 p-8">
 
           <div className="w-full flex justify-between items-center">
-            <h1 className="text-3xl font-semibold text-[#313131]">Users Management</h1>
+            <h1 className={`text-3xl font-semibold ${theme === "light" ? "text-[#313131]" : "text-gray-100"}`}>Users Management</h1>
             <button
               onClick={() => setShowForm(true)}
               className="bg-green-400 text-white px-4 py-2 rounded-md hover:bg-green-500"
@@ -120,8 +121,8 @@ const Users = ({ embedded = false }: { embedded?: boolean }) => {
           </div>
 
           {showForm && (
-            <div className="w-full bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4">
+            <div className={`w-full p-6 rounded-lg shadow-md ${theme === "light" ? "bg-white" : "bg-gray-800"}`}>
+              <h2 className={`text-xl font-semibold mb-4 ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>
                 {editingUser ? 'Edit User' : 'Add New User'}
               </h2>
 
@@ -129,33 +130,33 @@ const Users = ({ embedded = false }: { embedded?: boolean }) => {
                 <div className="grid grid-cols-2 gap-4">
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                    <label className={`block text-sm font-medium mb-2 ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>Name</label>
                     <input
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 ${theme === "light" ? "border-gray-300 bg-white text-gray-900" : "border-gray-600 bg-gray-700 text-gray-100"}`}
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <label className={`block text-sm font-medium mb-2 ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>Email</label>
                     <input
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 ${theme === "light" ? "border-gray-300 bg-white text-gray-900" : "border-gray-600 bg-gray-700 text-gray-100"}`}
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Role</label>
+                    <label className={`block text-sm font-medium mb-2 ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>Role</label>
                     <select
                       value={formData.role}
                       onChange={(e) => setFormData({ ...formData, role: e.target.value as 'Admin' | 'Member' })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 ${theme === "light" ? "border-gray-300 bg-white text-gray-900" : "border-gray-600 bg-gray-700 text-gray-100"}`}
                     >
                       <option value="Member">Member</option>
                       <option value="Admin">Admin</option>
@@ -163,11 +164,11 @@ const Users = ({ embedded = false }: { embedded?: boolean }) => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                    <label className={`block text-sm font-medium mb-2 ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>Status</label>
                     <select
                       value={formData.status}
                       onChange={(e) => setFormData({ ...formData, status: e.target.value as 'active' | 'inactive' })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 ${theme === "light" ? "border-gray-300 bg-white text-gray-900" : "border-gray-600 bg-gray-700 text-gray-100"}`}
                     >
                       <option value="active">Active</option>
                       <option value="inactive">Inactive</option>
@@ -190,31 +191,31 @@ const Users = ({ embedded = false }: { embedded?: boolean }) => {
             </div>
           )}
 
-          <div className="w-full bg-white p-6 rounded-lg shadow-md">
+          <div className={`w-full p-6 rounded-lg shadow-md ${theme === "light" ? "bg-white" : "bg-gray-800"}`}>
             <div className='w-full flex items-center justify-between'>
-              <h2 className="text-xl font-semibold mb-4">Users List</h2>
-              <LuListFilter />
+              <h2 className={`text-xl font-semibold mb-4 ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Users List</h2>
+              <LuListFilter className={theme === "light" ? "text-gray-700" : "text-gray-300"} />
             </div>
 
             <div className="overflow-x-auto">
               <table className="w-full table-auto">
                 <thead>
-                  <tr className="bg-gray-50">
-                    <th className="px-4 py-2 text-left">Name</th>
-                    <th className="px-4 py-2 text-left">Email</th>
-                    <th className="px-4 py-2 text-left">Role</th>
-                    <th className="px-4 py-2 text-left">Status</th>
-                    <th className="px-4 py-2 text-left">Join Date</th>
-                    <th className="px-4 py-2 text-left">Actions</th>
+                  <tr className={theme === "light" ? "bg-gray-50" : "bg-gray-700"}>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Name</th>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Email</th>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Role</th>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Status</th>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Join Date</th>
+                    <th className={`px-4 py-2 text-left ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Actions</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {users.map((user) => (
-                    <tr key={user.id} className="border-t">
-                      <td className="px-4 py-2">{user.name}</td>
-                      <td className="px-4 py-2">{user.email}</td>
-                      <td className="px-4 py-2">{user.role}</td>
+                    <tr key={user.id} className={theme === "light" ? "border-t" : "border-t border-gray-700"}>
+                      <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>{user.name}</td>
+                      <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>{user.email}</td>
+                      <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>{user.role}</td>
 
                       <td className="px-4 py-2">
                         <span className={`px-2 py-1 rounded-full text-xs ${user.status === 'active'
@@ -225,7 +226,7 @@ const Users = ({ embedded = false }: { embedded?: boolean }) => {
                         </span>
                       </td>
 
-                      <td className="px-4 py-2">{user.joinDate}</td>
+                      <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>{user.joinDate}</td>
 
                       <td className="px-4 py-2">
                         <button
