@@ -1,133 +1,76 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { TableVirtuoso } from 'react-virtuoso';
-import type {TableComponents} from 'react-virtuoso'
-import Chance from 'chance'
+import { useContext } from 'react';
+import appContext from '../../Contexts/AppContext';
 
 interface Data {
   id: number;
-  firstName: string;
-  lastName: string;
-  age: number;
-  phone: string;
-  state: string;
+  bookTitle: string;
+  borrower: string;
+  dueDate: string;
+  status: string;
 }
 
-interface ColumnData {
-  dataKey: keyof Data;
-  label: string;
-  numeric?: boolean;
-  width?: number;
-}
-
-const chance = new Chance(42);
-
-function createData(id: number): Data {
-  return {
-    id,
-    firstName: chance.first(),
-    lastName: chance.last(),
-    age: chance.age(),
-    phone: chance.phone(),
-    state: chance.state({ full: true }),
-  };
-}
-
-const columns: ColumnData[] = [
-  {
-    width: 100,
-    label: 'First Name',
-    dataKey: 'firstName',
-  },
-  {
-    width: 100,
-    label: 'Last Name',
-    dataKey: 'lastName',
-  },
-  {
-    width: 50,
-    label: 'Age',
-    dataKey: 'age',
-    numeric: true,
-  },
-  {
-    width: 110,
-    label: 'State',
-    dataKey: 'state',
-  },
-  {
-    width: 130,
-    label: 'Phone Number',
-    dataKey: 'phone',
-  },
+const sampleData: Data[] = [
+  { id: 1, bookTitle: 'The Great Gatsby', borrower: 'John Doe', dueDate: '2024-01-15', status: 'Overdue' },
+  { id: 2, bookTitle: 'To Kill a Mockingbird', borrower: 'Jane Smith', dueDate: '2024-01-18', status: 'Overdue' },
+  { id: 3, bookTitle: '1984', borrower: 'Bob Johnson', dueDate: '2024-01-20', status: 'Overdue' },
+  { id: 4, bookTitle: 'Pride and Prejudice', borrower: 'Alice Brown', dueDate: '2024-01-22', status: 'Due Soon' },
+  { id: 5, bookTitle: 'The Catcher in the Rye', borrower: 'Charlie Davis', dueDate: '2024-01-25', status: 'Active' },
 ];
 
-const rows: Data[] = Array.from({ length: 200 }, (_, index) => createData(index));
+export default function SimpleTable() {
+  const { theme } = useContext(appContext);
 
-const VirtuosoTableComponents: TableComponents<Data> = {
-  Scroller: React.forwardRef<HTMLDivElement>((props, ref) => (
-    <TableContainer component={Paper} {...props} ref={ref} />
-  )),
-  Table: (props) => (
-    <Table {...props} sx={{ borderCollapse: 'separate', tableLayout: 'fixed' }} />
-  ),
-  TableHead: React.forwardRef<HTMLTableSectionElement>((props, ref) => (
-    <TableHead {...props} ref={ref} />
-  )),
-  TableRow,
-  TableBody: React.forwardRef<HTMLTableSectionElement>((props, ref) => (
-    <TableBody {...props} ref={ref} />
-  )),
-};
-
-function fixedHeaderContent() {
   return (
-    <TableRow>
-      {columns.map((column) => (
-        <TableCell
-          key={column.dataKey}
-          variant="head"
-          align={column.numeric || false ? 'right' : 'left'}
-          style={{ width: column.width }}
-          sx={{ backgroundColor: 'background.paper' }}
-        >
-          {column.label}
-        </TableCell>
-      ))}
-    </TableRow>
-  );
-}
-
-function rowContent(_index: number, row: Data) {
-  return (
-    <React.Fragment>
-      {columns.map((column) => (
-        <TableCell
-          key={column.dataKey}
-          align={column.numeric || false ? 'right' : 'left'}
-        >
-          {row[column.dataKey]}
-        </TableCell>
-      ))}
-    </React.Fragment>
-  );
-}
-
-export default function ReactVirtualizedTable() {
-  return (
-    <Paper style={{ height: 400, width: '100%' }}>
-      <TableVirtuoso
-        data={rows}
-        components={VirtuosoTableComponents}
-        fixedHeaderContent={fixedHeaderContent}
-        itemContent={rowContent}
-      />
-    </Paper>
+    <div className="w-full overflow-x-auto">
+      <table className="w-full table-auto">
+        <thead>
+          <tr className={theme === "light" ? "bg-gray-100" : "bg-gray-700"}>
+            <th className={`px-4 py-2 text-left text-sm font-semibold ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>
+              Book Title
+            </th>
+            <th className={`px-4 py-2 text-left text-sm font-semibold ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>
+              Borrower
+            </th>
+            <th className={`px-4 py-2 text-left text-sm font-semibold ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>
+              Due Date
+            </th>
+            <th className={`px-4 py-2 text-left text-sm font-semibold ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>
+              Status
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sampleData.map((row) => (
+            <tr
+              key={row.id}
+              className={`${theme === "light" ? "border-t border-gray-200 hover:bg-gray-50" : "border-t border-gray-600 hover:bg-gray-700"}`}
+            >
+              <td className={`px-4 py-2 text-sm ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>
+                {row.bookTitle}
+              </td>
+              <td className={`px-4 py-2 text-sm ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>
+                {row.borrower}
+              </td>
+              <td className={`px-4 py-2 text-sm ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>
+                {row.dueDate}
+              </td>
+              <td className="px-4 py-2">
+                <span
+                  className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    row.status === 'Overdue'
+                      ? 'bg-red-100 text-red-800'
+                      : row.status === 'Due Soon'
+                      ? 'bg-yellow-100 text-yellow-800'
+                      : 'bg-green-100 text-green-800'
+                  }`}
+                >
+                  {row.status}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
