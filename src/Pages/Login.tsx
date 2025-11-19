@@ -6,12 +6,14 @@ import type{SubmitHandler} from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import appContext from '../Contexts/AppContext';
 import { useContext } from 'react';
+
 interface LoginUser {
   password: string;
   email: string;
 }
 
 const Login = () => {
+  
   const {setIsAuthenticated}=useContext(appContext)
   const LoginSchema = yup.object({
     email: yup
@@ -44,7 +46,7 @@ const Login = () => {
     setIsAuthenticated(true);
     navigate("/dashboard")
 
-    // i will do API operation here...
+    
   };
 
   const navigate = useNavigate();

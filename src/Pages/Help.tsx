@@ -12,15 +12,15 @@ const Help = ({ embedded = false }: { embedded?: boolean }) => {
           <div className="w-full bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">Frequently Asked Questions</h2>
             <div className="space-y-4">
-              <div>
+              <div className='hover:shadow-md shadow-green-100 p-2 cursor-pointer rounded-md hover:bg-green-50 ' >
                 <h3 className="font-medium">How do I add a new book?</h3>
                 <p className="text-gray-600">Go to the Books page and click "Add Book" button.</p>
               </div>
-              <div>
+              <div className='hover:shadow-md shadow-green-100 p-2 cursor-pointer rounded-md hover:bg-green-50 '>
                 <h3 className="font-medium">How do I manage users?</h3>
                 <p className="text-gray-600">Visit the Users page to add, edit, or remove users.</p>
               </div>
-              <div>
+              <div className='hover:shadow-md shadow-green-100 p-2 cursor-pointer rounded-md hover:bg-green-50 '>
                 <h3 className="font-medium">How to change theme?</h3>
                 <p className="text-gray-600">Use the theme toggle button in the navbar or go to Settings.</p>
               </div>
