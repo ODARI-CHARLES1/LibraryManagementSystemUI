@@ -33,7 +33,7 @@ const Navbar = () => {
   };
   console.log(period);
   return (
-    <div className="w-full relative shadow-md shadow-green-100 bg-white py-3 md:py-4 px-3 md:px-4 flex items-center justify-between transition-colors">
+    <div className={`${theme=="light"?"bg-white text-gray-700":"bg-gray-900 text-[#6b6b6b]"}  w-full relative shadow-md shadow-green-100 py-3 md:py-4 px-3 md:px-4 flex items-center justify-between transition-colors`}>
       <div className="flex items-center gap-2 md:gap-4">
         <button 
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -43,7 +43,7 @@ const Navbar = () => {
         </button>
         <div className="flex items-center gap-1 md:gap-2">
           <HiMiniBuildingLibrary className="size-5 md:size-6 text-green-400" />
-          <h1 className="text-lg md:text-2xl font-semibold text-[#313131]">
+          <h1 className="text-lg md:text-2xl font-semibold">
             <span className="hidden sm:inline">Library System</span>
             <span className="sm:hidden">Library</span>
           </h1>
@@ -53,7 +53,7 @@ const Navbar = () => {
      <div className="flex justify-end items-center gap-2 md:gap-4 flex-1">
        <div className="hidden md:flex h-10 p-2 w-full max-w-xs border-gray-300 border-2 rounded-full items-center">
         <input
-          className="w-full appearance-none outline-0 text-base p-2 rounded-full h-full bg-transparent text-gray-900 placeholder-gray-500"
+          className="w-full appearance-none outline-0 text-base p-2 rounded-full h-full bg-transparent placeholder-gray-500"
           placeholder="Search"
           type="text"
         />
@@ -63,7 +63,7 @@ const Navbar = () => {
         <div className="hidden md:block relative">
           <button
             onClick={() => handleClickSelectActive()}
-            className="border-2 border-gray-300 rounded-full px-3 py-1 text-sm text-gray-900 whitespace-nowrap"
+            className="border-2 border-gray-300 rounded-full px-3 py-1 text-sm whitespace-nowrap"
           >
             {period.slice(1, -1)}
           </button>
@@ -71,19 +71,19 @@ const Navbar = () => {
             <ul className="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-xl shadow-lg z-50">
               <li
                 onClick={() => handleClickSetPeriod("6 months")}
-                className="px-3 py-2 hover:bg-green-400 hover:text-white cursor-pointer rounded-t-xl text-gray-900"
+                className="px-3 py-2 hover:bg-green-400 hover:text-white cursor-pointer rounded-t-xl"
               >
                 6 months
               </li>
               <li
                 onClick={() => handleClickSetPeriod("12 months")}
-                className="px-3 py-2 hover:bg-green-400 hover:text-white cursor-pointer text-gray-900"
+                className="px-3 py-2 hover:bg-green-400 hover:text-white cursor-pointer"
               >
                 12 months
               </li>
               <li
                 onClick={() => handleClickSetPeriod("24 months")}
-                className="px-3 py-2 hover:bg-green-400 hover:text-white cursor-pointer rounded-b-xl text-gray-900"
+                className="px-3 py-2 hover:bg-green-400 hover:text-white cursor-pointer rounded-b-xl"
               >
                 24 months
               </li>
