@@ -1,17 +1,18 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import type { ReactNode } from 'react';
-import Dashboard from "./Pages/Dashboard";
-import Login from './Pages/Login';
-import Signup from './Pages/Signup';
-import Books from './Pages/Books';
-import Users from './Pages/Users';
-import Admins from './Pages/Admins';
-import Notifications from './Pages/Notifications';
-import Records from './Pages/Records';
-import Settings from './Pages/Settings';
-import Help from './Pages/Help';
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import Login from './Pages/Login/Login';
+import Signup from './Pages/SignUp/Signup';
+import Books from './Pages/Books/Books';
+import Users from './Pages/Users/Users';
+import Admins from './Pages/Admins/Admins';
+import Notifications from './Pages/Notifications/Notifications';
+import Records from './Pages/Records/Records';
+import Settings from './Pages/Settings/Settings';
+import Help from './Pages/Help/Help';
 import appContext from './Contexts/AppContext';
+import { ToastContainer } from 'react-toastify'; 
 
 if (localStorage.getItem("sideActive")) { ;
 } else {
@@ -34,6 +35,8 @@ const App = () => {
   const { theme } = useContext(appContext);
   
   return (
+ <>
+ <ToastContainer/>
     <Router>
       <div className={`h-screen transition-colors ${theme === "light" ? "bg-gray-100" : "bg-gray-950"}`}>
         <Routes>
@@ -51,7 +54,7 @@ const App = () => {
         </Routes>
       </div>
     </Router>
+ </>
   );
 };
-
 export default App;
