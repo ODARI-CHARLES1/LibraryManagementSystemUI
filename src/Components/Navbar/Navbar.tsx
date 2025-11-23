@@ -33,7 +33,7 @@ const Navbar = () => {
   };
   console.log(period);
   return (
-    <div className={`${theme=="light"?"bg-white text-gray-700":"bg-gray-900 text-[#6b6b6b]"}  w-full relative shadow-md shadow-green-100 py-3 md:py-4 px-3 md:px-4 flex items-center justify-between transition-colors`}>
+    <div className={`${theme=="light"?"bg-white text-gray-700":"bg-gray-900 text-[#6b6b6b]"}  w-full relative shadow-md py-3 md:py-4 px-3 md:px-4 flex items-center justify-between transition-colors`}>
       <div className="flex items-center gap-2 md:gap-4">
         <button 
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
