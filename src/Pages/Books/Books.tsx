@@ -23,11 +23,10 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
   const { theme } = useContext(appContext);
   const [books, setBooks] = useState<Book[]>(initialBooks);
   const [showForm, setShowForm] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [editingBook, setEditingBook] = useState<Book | null>(null); 
   const { data, isLoading, error } = bookAPI.useGetBooksQuery();
-  const [createBook]=bookAPI.useCreateBookMutation()
-
-
+  const [createBook] = bookAPI.useCreateBookMutation()
+  const [updateBook] = bookAPI.useUpdateBookMutation() 
   const { control, handleSubmit, reset, formState: { errors } } = useForm<BookInput | BookUpdateInput>({
     resolver: yupResolver(bookSchema),
     defaultValues: {
@@ -39,30 +38,36 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
     },
   });
 
-  const onSubmit: SubmitHandler<BookInput | BookUpdateInput> =async (data) => {
-    if (editingIndex !== null) {
-      const updatedBook: BookUpdateInput = {
+  const onSubmit: SubmitHandler<BookInput | BookUpdateInput> = async (data) => {
+    if (editingBook !== null) {
+      const updatedBookData: BookUpdateInput = {
         title: data.title,
         author: data.author,
         category_id: data.category_id ?? null,
         publication_year: data.publication_year ?? null,
         stock_quantity: data.stock_quantity,
       };
-      setBooks(prev => prev.map((b, i) => i === editingIndex ? { ...b, ...updatedBook, updated_at: new Date() } : b));
+    
+      if (books.length > 0) {
+        setBooks(prev => prev.map(b => b.book_id === editingBook.book_id ? { ...b, ...updatedBookData, updated_at: new Date() } : b));
+      }
+      console.log("Edited Book",updatedBookData)
+      const res = await updateBook({ 
+        id: editingBook.book_id, 
+        ...updatedBookData 
+      }).unwrap() 
+      console.log(res)
+      console.log(editingBook.book_id)
     } else {
-      const newBook: Book = {
-        book_id: Date.now(),
+      const newBook: BookInput = {
         title: data.title!,
         author: data.author!,
-        category_id: data.category_id ?? null,
+        category_id: 1,//data.category_id ?? null,
         publication_year: data.publication_year ?? null,
         stock_quantity: data.stock_quantity!,
-        created_at: new Date(),
-        updated_at: new Date(),
       };
-        const res=await createBook(newBook).unwrap()
-        console.log(res)
-
+      const res = await createBook(newBook).unwrap()
+      console.log(res)
     }
     resetForm();
   };
@@ -70,15 +75,14 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
   console.log(books)
   const resetForm = () => {
     reset();
-    setEditingIndex(null);
+    setEditingBook(null);
     setShowForm(false);
   };
 
-  const handleEdit = (index: number) => {
-    const book = books[index];
+  const handleEdit = (book: Book) => {
     const { book_id, created_at, updated_at, ...values } = book;
     reset(values);
-    setEditingIndex(index);
+    setEditingBook(book);
     setShowForm(true);
   };
 
@@ -99,7 +103,11 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
 
           <div className="w-full flex justify-between items-center">
             <h1 className={`text-3xl font-semibold ${theme === "light" ? "text-[#313131]" : "text-gray-100"}`}>Books Management</h1>
-            <button onClick={() => { reset(); setEditingIndex(null); setShowForm(true); }} className="bg-green-400 text-white px-4 py-2 rounded-md hover:bg-green-500">
+            <button
+              disabled={isLoading}
+              onClick={() => { reset(); setEditingBook(null); setShowForm(true); }} 
+              className={` ${isLoading ? "disable" : ""} bg-green-400 text-white px-4 py-2 rounded-md hover:bg-green-500`}
+            >
               Add Book
             </button>
           </div>
@@ -107,7 +115,7 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
           {showForm && (
             <div className={`w-full p-6 rounded-lg shadow-md ${theme === "light" ? "bg-white" : "bg-gray-800"}`}>
               <h2 className={`text-xl font-semibold mb-4 ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>
-                {editingIndex !== null ? "Edit Book" : "Add New Book"}
+                {editingBook !== null ? "Edit Book" : "Add New Book"}
               </h2>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -139,7 +147,7 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
                 </div>
                 <div className="flex gap-2">
                   <button type="submit" className="bg-green-400 text-white px-4 py-2 rounded-md hover:bg-green-500">
-                    {editingIndex !== null ? "Update" : "Add"} Book
+                    {editingBook !== null ? "Update" : "Add"} Book
                   </button>
                   <button type="button" onClick={resetForm} className="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500">
                     Cancel
@@ -164,13 +172,17 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
                   {
                     error ? <h1>Error Fetching Books Data</h1> : (
                       isLoading ? (
-                        <ScaleLoader color="#4ea872" />
+                        <tr>
+                          <td colSpan={7} className="text-center py-4">
+                            <ScaleLoader color="#4ea872" />
+                          </td>
+                        </tr>
                       ) : (
                         data?.map((book, index) => {
                           const available = book.stock_quantity > 0;
 
                           return (
-                            <tr key={index} className={theme === "light" ? "border-t" : "border-t border-gray-700"}>
+                            <tr key={book.book_id} className={theme === "light" ? "border-t" : "border-t border-gray-700"}>
                               <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>
                                 {book.title}
                               </td>
@@ -200,7 +212,7 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
 
                               <td className="px-4 py-2">
                                 <button
-                                  onClick={() => handleEdit(index)}
+                                  onClick={() => handleEdit(book)}
                                   className="text-blue-600 hover:text-blue-800 mr-2"
                                 >
                                   Edit
