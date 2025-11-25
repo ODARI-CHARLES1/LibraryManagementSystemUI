@@ -71,7 +71,7 @@ const Login = () => {
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <div className="text-center mb-8">
           <HiMiniBuildingLibrary className="text-4xl text-green-400 mx-auto mb-4" />
-          <h1 className="text-3xl font-semibold text-[#313131]">Library System</h1>
+          <h1 data-test="login-header" className="text-3xl font-semibold text-[#313131]">Library System</h1>
           <p className="text-gray-600 mt-2">Sign in to your account</p>
         </div>
 
