@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22.15.0'
-          cache: 'pnpm' # Enables pnpm caching for faster future runs
+          cache: 'pnpm'
 
       # Install dependencies
       - name: Install dependencies
@@ -30,10 +30,10 @@ jobs:
       - name: Build project
         run: pnpm run build
 
-      # Running Cypress tests
+      # Running Cypress tests - CORRECTED ACTION
       - name: Cypress run
-        uses: cypress-io/github-actions@v4
+        uses: cypress-io/github-action@v6
         with:
           build: pnpm run build
-          start: pnpm preview  # Changed from 'npm preview' to 'pnpm preview'
+          start: pnpm preview
           browser: chrome
