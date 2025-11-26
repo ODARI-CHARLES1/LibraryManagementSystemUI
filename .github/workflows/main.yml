@@ -1,0 +1,39 @@
+name: Cypress Regression Tests
+
+on: push
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Install pnpm v10
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      # Install Node.js 22.15.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.15.0'
+          cache: 'pnpm' # Enables pnpm caching for faster future runs
+
+      # Install dependencies
+      - name: Install dependencies
+        run: pnpm install
+
+      # Build the project
+      - name: Build project
+        run: pnpm run build
+
+      # Running Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-actions@v4
+        with:
+          build: pnpm run build
+          start: pnpm preview  # Changed from 'npm preview' to 'pnpm preview'
+          browser: chrome
