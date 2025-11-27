@@ -13,6 +13,7 @@ import Settings from './Pages/Settings/Settings';
 import Help from './Pages/Help/Help';
 import appContext from './Contexts/AppContext';
 import { ToastContainer } from 'react-toastify'; 
+import Alert from "./Components/Alert/Alert"
 
 if (localStorage.getItem("sideActive")) { ;
 } else {
