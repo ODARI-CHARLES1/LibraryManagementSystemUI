@@ -9,6 +9,8 @@ import appContext from "../../Contexts/AppContext";
 import type { Book, BookInput, BookUpdateInput } from "../../Types/books.Interface";
 import { bookAPI } from "../../Features/Books/bookAPI";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import {toast,ToastContainer} from 'react-toastify'
+import Alert from "../../Components/Alert/Alert"
 
 const bookSchema: yup.ObjectSchema<BookInput> = yup.object({
   title: yup.string().required(),
@@ -20,13 +22,14 @@ const bookSchema: yup.ObjectSchema<BookInput> = yup.object({
 
 const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, initialBooks?: Book[] }) => {
 
-  const { theme } = useContext(appContext);
+  const { theme,alertPop,setAlertPop,deletedBook,setDeleteBook,deleteApprove } = useContext(appContext);
   const [books, setBooks] = useState<Book[]>(initialBooks);
   const [showForm, setShowForm] = useState(false);
   const [editingBook, setEditingBook] = useState<Book | null>(null); 
   const { data, isLoading, error } = bookAPI.useGetBooksQuery();
   const [createBook] = bookAPI.useCreateBookMutation()
   const [updateBook] = bookAPI.useUpdateBookMutation() 
+  const [deleteBook] = bookAPI.useDeleteBookMutation()
   const { control, handleSubmit, reset, formState: { errors } } = useForm<BookInput | BookUpdateInput>({
     resolver: yupResolver(bookSchema),
     defaultValues: {
@@ -37,10 +40,17 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
       stock_quantity: 0,
     },
   });
+    
+    const handleEdit = (book: Book) => {
+      const { book_id, created_at, updated_at, ...values } = book;
+      reset(values);
+      setEditingBook(book);
+      setShowForm(true);
+    };
 
   const onSubmit: SubmitHandler<BookInput | BookUpdateInput> = async (data) => {
     if (editingBook !== null) {
-      const updatedBookData: BookUpdateInput = {
+        const updatedBookData: BookUpdateInput = {
         title: data.title,
         author: data.author,
         category_id: data.category_id ?? null,
@@ -51,23 +61,26 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
       if (books.length > 0) {
         setBooks(prev => prev.map(b => b.book_id === editingBook.book_id ? { ...b, ...updatedBookData, updated_at: new Date() } : b));
       }
-      console.log("Edited Book",updatedBookData)
-      const res = await updateBook({ 
-        id: editingBook.book_id, 
-        ...updatedBookData 
-      }).unwrap() 
+      const res=await updateBook({
+        id:editingBook.book_id,
+        data:updatedBookData
+      })
       console.log(res)
-      console.log(editingBook.book_id)
+      if(res){
+        toast.success(`Book with Updated Successfully.`)
+      }
     } else {
       const newBook: BookInput = {
         title: data.title!,
         author: data.author!,
-        category_id: 1,//data.category_id ?? null,
+        category_id: data.category_id ?? null,
         publication_year: data.publication_year ?? null,
         stock_quantity: data.stock_quantity!,
       };
       const res = await createBook(newBook).unwrap()
-      console.log(res)
+       if(res){
+        toast.success(`Book Added Successfully.`)
+      }
     }
     resetForm();
   };
@@ -79,23 +92,28 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
     setShowForm(false);
   };
 
-  const handleEdit = (book: Book) => {
-    const { book_id, created_at, updated_at, ...values } = book;
-    reset(values);
-    setEditingBook(book);
-    setShowForm(true);
-  };
 
   const handleDelete = (index: number) => {
-    if (!confirm("Are you sure you want to delete this book?")) return;
-    setBooks(prev => prev.filter((_, i) => i !== index));
+    if(deleteApprove) {
+      deleteBook(index)
+     toast.success("Book Deleted Successfully")
+    } 
+    else{
+      toast.error("Reverted Deleted Process")
+    }
+    
   };
 
   const fields: (keyof BookInput)[] = ["title", "author", "category_id", "publication_year", "stock_quantity"];
 
   return (
-    <div className="w-full flex flex-col items-center h-full gap-1 overflow-hidden">
-
+    <div className={`w-full relative flex flex-col items-center h-full gap-1 overflow-hidden`}>
+      {alertPop && (
+        <div className="absolute top-[30%] z-20">
+          <Alert/>
+        </div>
+      )}
+      <ToastContainer/>
       {!embedded && <Navbar />}
       <div className="w-full flex gap-5">
         {!embedded && <Sidebar />}
@@ -178,11 +196,10 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
                           </td>
                         </tr>
                       ) : (
-                        data?.map((book, index) => {
+                        data?.map((book) => {
                           const available = book.stock_quantity > 0;
-
                           return (
-                            <tr key={book.book_id} className={theme === "light" ? "border-t" : "border-t border-gray-700"}>
+                            <tr key={book.book_id} onClick={()=>console.log(book.book_id)} className={theme === "light" ? "border-t" : "border-t border-gray-700"}>
                               <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>
                                 {book.title}
                               </td>
@@ -218,7 +235,7 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
                                   Edit
                                 </button>
                                 <button
-                                  onClick={() => handleDelete(index)}
+                                  onClick={()=>{setAlertPop(true);setDeleteBook([book]);handleDelete(book.book_id)}}
                                   className="text-red-600 hover:text-red-800"
                                 >
                                   Delete
