@@ -9,8 +9,7 @@ import { useNavigate } from "react-router-dom";
 import UserProfile from "../Profile/UserProfile";
 
 const Navbar = () => {
-  const { selectActive, setSelectActive, period, setPeriod, theme, setTheme, setIsAuthenticated, mobileMenuOpen, setMobileMenuOpen,profilePop,setProfilePop } =
-    useContext(appContext);
+  const { selectActive, setSelectActive, period, setPeriod, theme, setTheme, setIsAuthenticated, mobileMenuOpen, setMobileMenuOpen,profilePop,setProfilePop }=useContext(appContext);
   const navigate = useNavigate();
   const handleClickSelectActive = () => {
     setSelectActive(true);
