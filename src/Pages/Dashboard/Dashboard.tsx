@@ -10,10 +10,11 @@ import Records from '../Records/Records'
 import Settings from '../Settings/Settings'
 import Help from '../Help/Help'
 import appContext from '../../Contexts/AppContext'
-
 const Dashboard = () => {
-  const { sideActive } = useContext(appContext);
-
+  const { sideActive ,setProfilePop,profilePop} = useContext(appContext);
+  const handleClickProfile=()=>{
+   return profilePop?setProfilePop(false):""
+  }
   const renderContent = () => {
     switch(sideActive) {
       case 0: return <DashboardSummary />;
@@ -29,7 +30,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className='w-full overflow-hidden h-full flex flex-col'>
+    <div onClick={()=>handleClickProfile()} className='w-full overflow-hidden h-full flex flex-col'>
         <Navbar/>
         <div className='w-full flex flex-1 overflow-hidden relative'>
            <Sidebar/>
