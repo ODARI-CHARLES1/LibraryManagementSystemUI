@@ -30,7 +30,6 @@ const Navbar = () => {
     setIsAuthenticated(false);
     navigate('/login');
   };
-  console.log(period);
   return (
     <div className={`${theme=="light"?"bg-white text-gray-700":"bg-gray-900 text-[#6b6b6b]"}  w-full relative shadow-md py-3 md:py-4 px-3 md:px-4 flex items-center justify-between transition-colors`}>
       <div className="flex items-center gap-2 md:gap-4">
@@ -62,9 +61,13 @@ const Navbar = () => {
         <div className="hidden md:block relative">
           <button
             onClick={() => handleClickSelectActive()}
-            className={`border-2 rounded-full px-3 py-1 text-sm whitespace-nowrap ${theme === "light" ? "border-gray-300" : "border-gray-600"}`}
+            className={`border-2 rounded-full px-3 w-fit py-1 text-sm whitespace-nowrap ${theme === "light" ? "border-gray-300" : "border-gray-600"}`}
           >
-            {period.slice(1, -1)}
+            {
+              period==="Select Period"?period:
+              period.slice(1,-1)
+            }
+        
           </button>
           {selectActive && (
             <ul className={`absolute left-0 mt-2 w-40 border rounded-xl shadow-lg z-50 ${theme === "light" ? "bg-white border-gray-300" : "bg-gray-800 border-gray-600"}`}>
