@@ -25,7 +25,7 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
 
   const [selectActive, setSelectActive] = useState(false);
 
-  const [period, setPeriod] = useState(localStorage.getItem("period") || "");
+  const [period, setPeriod] = useState(localStorage.getItem("period") || "Select Period");
 
   const [isAuthenticated, setIsAuthenticated] = useState(
     !!localStorage.getItem("currentUser")
@@ -42,6 +42,9 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
   // Correct: array of Book
   const [deletedBook, setDeleteBook] = useState<Book[]>([]);
   const [deleteApprove,setDeleteApprove]=useState(false)
+  const [bookSearchIdActive,setBookSearchIdActive]=useState(false) 
+  const [book,setBook]=useState<Book[]>([])
+
   const value = {
     profilePop,
     collapse,
@@ -54,7 +57,11 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
     alertPop,
     deletedBook,
     deleteApprove,
+    bookSearchIdActive,
+    book,
 
+    setBook,
+    setBookSearchIdActive,
     setDeleteApprove,
     setDeleteBook,
     setAlertPop,
