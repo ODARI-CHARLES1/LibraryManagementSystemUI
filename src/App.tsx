@@ -12,8 +12,6 @@ import Records from './Pages/Records/Records';
 import Settings from './Pages/Settings/Settings';
 import Help from './Pages/Help/Help';
 import appContext from './Contexts/AppContext';
-import { ToastContainer } from 'react-toastify'; 
-import Alert from "./Components/Alert/Alert"
 
 if (localStorage.getItem("sideActive")) { ;
 } else {
@@ -37,7 +35,7 @@ const App = () => {
   
   return (
  <>
- <ToastContainer/>
+
     <Router>
       <div className={`h-screen transition-colors ${theme === "light" ? "bg-gray-100" : "bg-gray-950"}`}>
         <Routes>
