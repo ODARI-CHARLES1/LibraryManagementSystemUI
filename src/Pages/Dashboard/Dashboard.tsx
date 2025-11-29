@@ -10,6 +10,7 @@ import Records from '../Records/Records'
 import Settings from '../Settings/Settings'
 import Help from '../Help/Help'
 import appContext from '../../Contexts/AppContext'
+
 const Dashboard = () => {
   const { sideActive ,setProfilePop,profilePop} = useContext(appContext);
   const handleClickProfile=()=>{
