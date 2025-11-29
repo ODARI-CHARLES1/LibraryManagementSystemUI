@@ -11,7 +11,7 @@ import { bookAPI } from "../../Features/Books/bookAPI";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import {toast,ToastContainer} from 'react-toastify'
 import Alert from "../../Components/Alert/Alert"
-
+import BookSearch from "./BookSearch";
 const bookSchema: yup.ObjectSchema<BookInput> = yup.object({
   title: yup.string().required(),
   author: yup.string().required(),
@@ -20,16 +20,18 @@ const bookSchema: yup.ObjectSchema<BookInput> = yup.object({
   stock_quantity: yup.number().required().min(0),
 }).required();
 
+
+
 const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, initialBooks?: Book[] }) => {
 
-  const { theme,alertPop,setAlertPop,deletedBook,setDeleteBook,deleteApprove } = useContext(appContext);
+  const { theme,alertPop,book,setAlertPop,bookSearchIdActive,setDeleteBook} = useContext(appContext);
   const [books, setBooks] = useState<Book[]>(initialBooks);
   const [showForm, setShowForm] = useState(false);
   const [editingBook, setEditingBook] = useState<Book | null>(null); 
   const { data, isLoading, error } = bookAPI.useGetBooksQuery();
   const [createBook] = bookAPI.useCreateBookMutation()
   const [updateBook] = bookAPI.useUpdateBookMutation() 
-  const [deleteBook] = bookAPI.useDeleteBookMutation()
+  
   const { control, handleSubmit, reset, formState: { errors } } = useForm<BookInput | BookUpdateInput>({
     resolver: yupResolver(bookSchema),
     defaultValues: {
@@ -40,7 +42,8 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
       stock_quantity: 0,
     },
   });
-    
+
+
     const handleEdit = (book: Book) => {
       const { book_id, created_at, updated_at, ...values } = book;
       reset(values);
@@ -67,7 +70,7 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
       })
       console.log(res)
       if(res){
-        toast.success(`Book with Updated Successfully.`)
+        toast.success(`Book Updated Successfully.`)
       }
     } else {
       const newBook: BookInput = {
@@ -85,7 +88,6 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
     resetForm();
   };
 
-  console.log(books)
   const resetForm = () => {
     reset();
     setEditingBook(null);
@@ -93,16 +95,8 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
   };
 
 
-  const handleDelete = (index: number) => {
-    if(deleteApprove) {
-      deleteBook(index)
-     toast.success("Book Deleted Successfully")
-    } 
-    else{
-      toast.error("Reverted Deleted Process")
-    }
-    
-  };
+  console.log(book)
+  
 
   const fields: (keyof BookInput)[] = ["title", "author", "category_id", "publication_year", "stock_quantity"];
 
@@ -176,7 +170,10 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
           )}
 
           <div className={`w-full p-6 rounded-lg shadow-md ${theme === "light" ? "bg-white" : "bg-gray-800"}`}>
-            <h2 className={`text-xl font-semibold mb-4 ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Books List</h2>
+            <div className="w-full flex items-center justify-between ">
+              <h2 className={`text-xl font-semibold mb-4 ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>Books List</h2>
+              <BookSearch/>
+            </div> 
             <div className="overflow-x-auto">
               <table className="w-full table-auto">
                 <thead>
@@ -187,7 +184,73 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
                   </tr>
                 </thead>
                 <tbody>
+
                   {
+                    bookSearchIdActive?
+                      (
+                    error ? <h1>Error Fetching Books Data</h1> : (
+                      isLoading ? (
+                        <tr>
+                          <td colSpan={7} className="text-center py-4">
+                            <ScaleLoader color="#4ea872" />
+                          </td>
+                        </tr>
+                      ) : (
+                        book?.map((book) => {
+                          const available = book.stock_quantity > 0;
+                          return (
+                            <tr key={book.book_id} onClick={()=>console.log(book.book_id)} className={theme === "light" ? "border-t" : "border-t border-gray-700"}>
+                              <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>
+                                {book.title}
+                              </td>
+                              <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>
+                                {book.author}
+                              </td>
+                              <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>
+                                {book.category_id ?? "—"}
+                              </td>
+                              <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>
+                                {book.publication_year ?? "—"}
+                              </td>
+                              <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>
+                                {book.stock_quantity}
+                              </td>
+
+                              <td className="px-4 py-2">
+                                <span
+                                  className={`px-2 py-1 rounded-full text-xs ${available
+                                      ? "bg-green-100 text-green-800"
+                                      : "bg-red-100 text-red-800"
+                                    }`}
+                                >
+                                  {available ? "Available" : "Out of Stock"}
+                                </span>
+                              </td>
+
+                              <td className="px-4 py-2">
+                                <button
+                                  onClick={() => handleEdit(book)}
+                                  className="text-blue-600 hover:text-blue-800 mr-2"
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  onClick={()=>{
+                                    setAlertPop(true);
+                                    setDeleteBook([book])
+                                  }}
+                                  className="text-red-600 hover:text-red-800"
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      )
+                    )
+                   ):
+                     (
                     error ? <h1>Error Fetching Books Data</h1> : (
                       isLoading ? (
                         <tr>
@@ -235,7 +298,10 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
                                   Edit
                                 </button>
                                 <button
-                                  onClick={()=>{setAlertPop(true);setDeleteBook([book]);handleDelete(book.book_id)}}
+                                  onClick={()=>{
+                                    setAlertPop(true);
+                                    setDeleteBook([book])
+                                  }}
                                   className="text-red-600 hover:text-red-800"
                                 >
                                   Delete
@@ -246,7 +312,10 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
                         })
                       )
                     )
+                   )
                   }
+                 
+                 
                 </tbody>
               </table>
             </div>
