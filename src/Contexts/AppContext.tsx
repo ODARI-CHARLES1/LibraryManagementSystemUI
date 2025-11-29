@@ -23,6 +23,10 @@ export interface appInterface {
   alertPop: boolean;
   deletedBook: Book[];
   deleteApprove:boolean;
+  bookSearchIdActive:boolean;
+  book:Book[];
+  setBook:(book:Book[])=>void;
+  setBookSearchIdActive:(prev:boolean)=>void;
   setDeleteApprove:(prev:boolean)=>void;
   setDeleteBook: (book: Book[]) => void;
   setAlertPop: (prev: boolean) => void;
@@ -47,6 +51,11 @@ const appContext = createContext<appInterface>({
   mobileMenuOpen: false,
   deletedBook: [] as Book[],
   deleteApprove:false,
+  bookSearchIdActive:false,
+  book:[] as Book[],
+
+  setBook:()=>{},
+  setBookSearchIdActive:()=>{},
   setDeleteApprove:()=>{},
   setDeleteBook: () => {},
   setAlertPop: () => {},
