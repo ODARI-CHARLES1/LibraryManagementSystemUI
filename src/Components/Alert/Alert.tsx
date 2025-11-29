@@ -1,8 +1,17 @@
 import { useContext } from "react"
 import appContext from "../../Contexts/AppContext"
-
+import { bookAPI } from "../../Features/Books/bookAPI"
+import {toast} from 'react-toastify'
 const Alert = () => {
-const {setAlertPop,alertPop,theme,deletedBook,setDeleteApprove}=useContext(appContext)
+      const [deleteBook] = bookAPI.useDeleteBookMutation()
+    
+      const handleDelete = async(book_id:number) => {
+        console.log("dleter",deleteApprove)
+         await deleteBook(book_id)
+         toast.success("Book Deleted Successfully")
+         setDeleteApprove(false)
+      };
+const {setAlertPop,alertPop,theme,deletedBook,deleteApprove,setDeleteApprove}=useContext(appContext)
   return (
     <>
         {
@@ -19,8 +28,8 @@ const {setAlertPop,alertPop,theme,deletedBook,setDeleteApprove}=useContext(appCo
         </div>
         <p>Are you sure you want to delete?</p>
         <div className="w-full flex items-center justify-between">
-            <button onClick={()=>{setAlertPop(!alertPop);setDeleteApprove(false)}} className="w-30 bg-green-600 p-1 rounded-md text-white cursor-pointer duration-500 hover:bg-green-700">No</button>
-            <button onClick={()=>{setAlertPop(!alertPop);setDeleteApprove(true)}} className="w-30 bg-red-600 p-1 rounded-md text-white cursor-pointer  duration-500 hover:bg-red-700">Yes</button>
+            <button onClick={()=>{setAlertPop(!alertPop);setDeleteApprove(false);console.log(deleteApprove)}} className="w-30 bg-green-600 p-1 rounded-md text-white cursor-pointer duration-500 hover:bg-green-700">No</button>
+            <button onClick={()=>{setAlertPop(!alertPop);handleDelete(deletedBook[0].book_id)}} className="w-30 bg-red-600 p-1 rounded-md text-white cursor-pointer  duration-500 hover:bg-red-700">Yes</button>
         </div>
     </div>
             )
