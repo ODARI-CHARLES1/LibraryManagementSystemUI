@@ -37,7 +37,7 @@ export const bookAPI = createApi({
   endpoints: (builder) => ({
     getBooks: builder.query<Book[], void>({
       query: () => ({
-        url: "/api/books",   // FIXED: remove trailing slash & add leading slash
+        url: "/api/books",
         method: "GET",
       }),
       providesTags: ["Books"],
