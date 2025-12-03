@@ -1,4 +1,5 @@
 import { MdDashboard } from "react-icons/md";
+import { FaBook } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 import { FaUsers } from "react-icons/fa";
 import { IoIosNotifications, IoIosSettings } from "react-icons/io";
@@ -13,7 +14,7 @@ import { useContext } from "react";
 
 const listData = [
   { name: "Dashboard", icon: <MdDashboard className="size-5" /> },
-  { name: "Books", icon: <VscRecordSmall className="size-5" /> },
+  { name: "Books", icon: <FaBook className="size-5" /> },
   { name: "Admin", icon: <RiAdminFill className="size-5" /> },
   { name: "Users", icon: <FaUsers className="size-5" /> },
   { name: "Notifications", icon: <IoIosNotifications className="size-5" /> },
