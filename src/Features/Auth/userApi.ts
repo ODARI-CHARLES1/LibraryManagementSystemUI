@@ -89,5 +89,14 @@ export const userApi = createApi({
         }),
         invalidatesTags:["Users"]
     }),
+
+    UpdateUser: builder.mutation<User, Partial<User>>({
+      query: (updateUserInf) => ({
+        url: "api/users/create",
+        method: "POST",
+        body: updateUserInf,
+      }),
+      invalidatesTags: ["Users"],
+    }),
   }),
 });
