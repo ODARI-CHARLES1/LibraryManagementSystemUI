@@ -3,10 +3,12 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { userApi } from "../Features/Auth/userApi";
 import { bookAPI } from "../Features/Books/bookAPI";
+import { categoriesApi } from "../Features/Records/CategoriesApi";
 
 const rootReducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [bookAPI.reducerPath]:bookAPI.reducer,
+  [categoriesApi.reducerPath]: categoriesApi.reducer,
 });
 
 const persistConfig = {
@@ -22,7 +24,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(userApi.middleware).concat(bookAPI.middleware),
+    }).concat(userApi.middleware).concat(bookAPI.middleware).concat(categoriesApi.middleware),
 });
 
 export const persistor = persistStore(store);
