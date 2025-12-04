@@ -1,6 +1,7 @@
 import appContext from "./AppContext";
 import { useState } from "react";
 import type { FC, ReactNode } from "react";
+import type{ User } from "../Types/users.types";
 
 export interface Book {
   book_id: number;
@@ -39,11 +40,11 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
   const [profilePop, setProfilePop] = useState(false);
   const [alertPop, setAlertPop] = useState(false);
 
-  // Correct: array of Book
   const [deletedBook, setDeleteBook] = useState<Book[]>([]);
   const [deleteApprove,setDeleteApprove]=useState(false)
   const [bookSearchIdActive,setBookSearchIdActive]=useState(false) 
   const [book,setBook]=useState<Book[]>([])
+  const [profileInfo,setProfileInfo]=useState<User[]>([])
 
   const value = {
     profilePop,
@@ -59,7 +60,9 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
     deleteApprove,
     bookSearchIdActive,
     book,
+    profileInfo,
 
+    setProfileInfo,
     setBook,
     setBookSearchIdActive,
     setDeleteApprove,
