@@ -6,7 +6,7 @@ export interface User{
     password_hash?:string,
     role: 'Admin' | 'Member',
     created_at?: Date,
-    updated_at?: Date
+    updated_at?: Date,
 }
 
 export interface newUser{
@@ -19,6 +19,7 @@ export interface newUser{
 }
 
 export interface updateUser{
+    email:string,
     username?:string,
     password?:string,
     role?:'Admin' |'Member',

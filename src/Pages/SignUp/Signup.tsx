@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import appContext from "../../Contexts/AppContext";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
-import { userApi } from "../../Features/Auth/userApi";
+import { userApi} from "../../Features/Auth/userApi";
 
 interface RegisterUser {
   username: string;

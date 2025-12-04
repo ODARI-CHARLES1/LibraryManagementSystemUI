@@ -6,7 +6,7 @@ import type{SubmitHandler} from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import appContext from '../../Contexts/AppContext';
 import { useContext } from 'react';
-import { userApi } from "../../Features/Auth/userApi"; 
+import { userApi} from "../../Features/Auth/userApi";
 import {toast } from 'react-toastify'; 
 import {useState} from 'react'
 import ScaleLoader from "react-spinners/ScaleLoader";
@@ -53,15 +53,17 @@ const Login = () => {
       setIsAuthenticated(true)
       navigate("/dashboard")
       console.log(response)
-      localStorage.setItem("token",response.data.token)
-      localStorage.setItem("role",response.data.role)
+      if(response.data) {
+        localStorage.setItem("token",response.data.token)
+        localStorage.setItem("role",response.data.role)
+      }
       toast.success("Logged in Successfully")
     }
     else{
       setReponseError("Email or Password is wrong")
       console.log(responseError)
     }
-    
+
   };
 
   const navigate = useNavigate();
