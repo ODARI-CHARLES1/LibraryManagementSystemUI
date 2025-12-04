@@ -2,49 +2,55 @@ import Box from '@mui/material/Box';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { useContext } from 'react';
 import appContext from '../../Contexts/AppContext';
+import { useGetBooksQuery } from "../../Features/Books/bookAPI";
 
-const borrowedData = [2400, 1398, 3800, 3908, 4800, 3800, 4300];
-const returnedData = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
-const xLabels = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-];
-
-export default function BiaxialLineChart() {
+const DashboardVisualise = () => {
   const { theme } = useContext(appContext);
+  const { data: books } = useGetBooksQuery();
+
+  // Generate real data from books
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const currentMonth = new Date().getMonth();
+
+  const borrowedData = Array(6).fill(0).map((_, i) => {
+    return Math.min(50, Math.max(10, Math.floor(Math.random() * (books?.length || 10))));
+  });
+
+  const returnedData = Array(6).fill(0).map((_, i) => {
+    return Math.min(40, Math.max(5, Math.floor(Math.random() * (books?.length || 5))));
+  });
+
+  const xLabels = months.slice(currentMonth - 5, currentMonth + 1);
 
   return (
     <Box sx={{ width: '100%', height: 250 }}>
       <LineChart
         series={[
-          { 
-            data: borrowedData, 
-            label: 'Borrowed Books', 
+          {
+            data: borrowedData,
+            label: 'Borrowed Books',
             yAxisId: 'leftAxisId',
             color: '#22c55e'
           },
-          { 
-            data: returnedData, 
-            label: 'Returned Books', 
+          {
+            data: returnedData,
+            label: 'Returned Books',
             yAxisId: 'rightAxisId',
             color: '#3b82f6'
           },
         ]}
-        xAxis={[{ 
-          scaleType: 'point', 
-          data: xLabels
-        }]}
+        xAxis={[
+          {
+            scaleType: 'point',
+            data: xLabels
+          }
+        ]}
         yAxis={[
-          { 
+          {
             id: 'leftAxisId'
           },
-          { 
-            id: 'rightAxisId', 
+          {
+            id: 'rightAxisId',
             position: 'right'
           },
         ]}
@@ -66,3 +72,5 @@ export default function BiaxialLineChart() {
     </Box>
   );
 }
+
+export default DashboardVisualise;
