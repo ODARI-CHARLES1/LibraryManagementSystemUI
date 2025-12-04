@@ -37,7 +37,7 @@ const Sidebar = () => {
 
   const handleClick = (index: number) => {
     localStorage.setItem("sideActive", JSON.stringify(index));
-    setCollapse(true);
+    //setCollapse(true);
     setSideActive(index);
     setSelectActive(false);
     setMobileMenuOpen(false);
@@ -63,10 +63,8 @@ const Sidebar = () => {
             : "bg-gray-900 text-[#6b6b6b]"
         }  fixed lg:relative h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)] justify-between shadow px-3 py-4 flex flex-col gap-5 transition-transform duration-300 ease-in-out z-50`}
       >
-        {/* Top Section */}
         <div className="w-full flex flex-col gap-5 relative">
           <div className="w-full px-4 flex items-center gap-1 justify-between">
-            {/* Close button on mobile */}
             <button
               onClick={() => setMobileMenuOpen(false)}
               className={`lg:hidden p-1 rounded ${theme === "light" ? "hover:bg-gray-100" : "hover:bg-gray-800"}`}
