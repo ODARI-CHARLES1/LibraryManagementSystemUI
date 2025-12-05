@@ -11,7 +11,6 @@ import {toast } from 'react-toastify';
 import {useState} from 'react'
 import ScaleLoader from "react-spinners/ScaleLoader";
 
-
 interface LoginUser {
   password: string;
   email: string;
@@ -19,7 +18,7 @@ interface LoginUser {
 
 const Login = () => {
   const [login,{isLoading}] = userApi.useLoginUserMutation();
-  const {setIsAuthenticated}=useContext(appContext)
+  const {setIsAuthenticated,setProfileInfo}=useContext(appContext)
   const [responseError,setReponseError]=useState("");
   const LoginSchema = yup.object({
     email: yup
@@ -51,11 +50,13 @@ const Login = () => {
     const response = await login(data).unwrap();
     if(response.success){
       setIsAuthenticated(true)
+      console.log(response.data)
       navigate("/dashboard")
-      console.log(response)
       if(response.data) {
         localStorage.setItem("token",response.data.token)
         localStorage.setItem("role",response.data.role)
+        setProfileInfo([response.data])
+
       }
       toast.success("Logged in Successfully")
     }
@@ -63,7 +64,6 @@ const Login = () => {
       setReponseError("Email or Password is wrong")
       console.log(responseError)
     }
-
   };
 
   const navigate = useNavigate();
