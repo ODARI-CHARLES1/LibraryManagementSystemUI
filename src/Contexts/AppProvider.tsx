@@ -1,7 +1,7 @@
 import appContext from "./AppContext";
 import { useState } from "react";
 import type { FC, ReactNode } from "react";
-import type{ User } from "../Types/users.types";
+import type{ profileData } from "../Types/users.types";
 
 export interface Book {
   book_id: number;
@@ -44,7 +44,7 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
   const [deleteApprove,setDeleteApprove]=useState(false)
   const [bookSearchIdActive,setBookSearchIdActive]=useState(false) 
   const [book,setBook]=useState<Book[]>([])
-  const [profileInfo,setProfileInfo]=useState<User[]>([])
+  const [profileInfo,setProfileInfo]=useState<profileData[]>([])
 
   const value = {
     profilePop,
