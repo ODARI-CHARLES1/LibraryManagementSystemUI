@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 import UserProfile from "../Profile/UserProfile";
 
 const Navbar = () => {
-  const { selectActive, setSelectActive, period, setPeriod, theme, setTheme, setIsAuthenticated, mobileMenuOpen, setMobileMenuOpen,profilePop,setProfilePop }=useContext(appContext);
+  const { selectActive, setSelectActive, period, setPeriod, theme, setTheme, setIsAuthenticated, mobileMenuOpen, setMobileMenuOpen,profilePop,setProfilePop,profileInfo }=useContext(appContext);
+  console.log(profileInfo)
   const navigate = useNavigate();
   const handleClickSelectActive = () => {
     setSelectActive(true);
@@ -93,7 +94,8 @@ const Navbar = () => {
           )}
         </div>
 
-        <div className="hidden sm:block">
+        <div className="hidden relative sm:block">
+          <span className="bg-red-500 text-xs absolute bottom-4 right-0 text-center text-white w-4 h-4 rounded-full">4</span>
           <IoIosNotifications className="size-5 hover:text-green-400 cursor-pointer" />
         </div>
         
@@ -113,9 +115,9 @@ const Navbar = () => {
         </div>
         
         <div className="hidden lg:flex items-center gap-2">
-           <p className="cursor-pointer hover:text-green-400 text-sm">Admin</p>
+           <p className="cursor-pointer hover:text-green-400 text-sm">{profileInfo[0].role=="member"?"Student":""}</p>
            <p className="text-green-400 cursor-pointer hover:text-green-300">|</p>
-           <p className="hover:text-green-400 cursor-pointer text-sm">Odari</p>
+           <p className="hover:text-green-400 cursor-pointer text-sm">{profileInfo[0].username}</p>
          </div>
          
          <button
