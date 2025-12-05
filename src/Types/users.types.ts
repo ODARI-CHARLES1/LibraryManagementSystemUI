@@ -45,3 +45,13 @@ export interface loginJwtConfig{
     secret:string
 
 }
+
+export interface profileData{
+    role:string,
+    username:string,
+    updated_at:string,
+    token:string,
+    id:number,
+    created_at:string,
+    email:string
+}
