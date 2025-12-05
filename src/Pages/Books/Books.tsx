@@ -25,7 +25,7 @@ const bookSchema: yup.ObjectSchema<BookInput> = yup.object({
 
 const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, initialBooks?: Book[] }) => {
 
-  const { theme,alertPop,book,setAlertPop,bookSearchIdActive,setDeleteBook} = useContext(appContext);
+  const { theme,alertPop,book,setAlertPop,bookSearchIdActive,setDeleteBook,profileInfo} = useContext(appContext);
   const [books, setBooks] = useState<Book[]>(initialBooks);
   const [showForm, setShowForm] = useState(false);
   const [editingBook, setEditingBook] = useState<Book | null>(null); 
@@ -213,9 +213,9 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
                               <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>
                                 {book.publication_year ?? "—"}
                               </td>
-                              <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>
+                              {profileInfo[0].role=="admin" && <td className={`px-4 py-2 ${theme === "light" ? "text-gray-900" : "text-gray-200"}`}>
                                 {book.stock_quantity}
-                              </td>
+                              </td>}
 
                               <td className="px-4 py-2">
                                 <span
@@ -228,7 +228,9 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
                                 </span>
                               </td>
 
-                              <td className="px-4 py-2">
+                              {
+                                profileInfo[0].role=="admin" &&
+                                <td className="px-4 py-2">
                                 <button
                                   onClick={() => handleEdit(book)}
                                   className="text-blue-600 hover:text-blue-800 mr-2"
@@ -245,6 +247,14 @@ const Books = ({ embedded = false, initialBooks = [] }: { embedded?: boolean, in
                                   Delete
                                 </button>
                               </td>
+                              }
+
+                              {
+                                profileInfo[0].role=="member" && <td className="px-4 py-2"> 
+                                  <button className="text-blue-600 hover:text-blue8.
+                                   mr-2">Stage Borrow</button>
+                                </td>
+                              }
                             </tr>
                           );
                         })
