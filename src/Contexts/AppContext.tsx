@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { User } from "../Types/users.types";
+import type { profileData } from "../Types/users.types";
 
 export interface Book {
   book_id: number;
@@ -26,8 +26,8 @@ export interface appInterface {
   deleteApprove:boolean;
   bookSearchIdActive:boolean;
   book:Book[];
-  profileInfo:User[],
-  setProfileInfo:(user:User[])=>void;
+  profileInfo:profileData[],
+  setProfileInfo:(profileData:profileData[])=>void;
   setBook:(book:Book[])=>void;
   setBookSearchIdActive:(prev:boolean)=>void;
   setDeleteApprove:(prev:boolean)=>void;
@@ -56,7 +56,7 @@ const appContext = createContext<appInterface>({
   deleteApprove:false,
   bookSearchIdActive:false,
   book:[] as Book[],
-  profileInfo: [] as User[],
+  profileInfo: [] as profileData[],
 
   setProfileInfo:()=>{},
   setBook:()=>{},
