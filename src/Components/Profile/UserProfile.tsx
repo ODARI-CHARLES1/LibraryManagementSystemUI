@@ -3,7 +3,7 @@ import { useContext } from "react";
 import appContext from "../../Contexts/AppContext";
 
 const UserProfile = () => {
-  const { theme } = useContext(appContext);
+  const { theme,profileInfo } = useContext(appContext);
   
   return (
     <div className={`w-[320px] relative h-fit cursor-pointer p-4 shadow-md rounded-lg flex items-center gap-4 hover:shadow-lg transition-shadow ${theme === "light" ? "bg-white" : "bg-gray-800"}`}>
@@ -20,12 +20,12 @@ const UserProfile = () => {
 
       <div className="flex flex-col justify-center">
         <h1 className="text-lg font-semibold text-green-600 leading-tight">
-          Odari K. Charles
+          {profileInfo[0].username}
         </h1>
 
-        <p className={`text-sm ${theme === "light" ? "text-gray-500" : "text-gray-400"}`}>Admin • Librarian</p>
+        <p className={`text-sm ${theme === "light" ? "text-gray-500" : "text-gray-400"}`}>{profileInfo[0].role} • {profileInfo[0].role=="Admin"?"Librarian":"Student"}</p>
 
-        <p className={`text-sm mt-1 ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>Odari.charlesk@gmail.com</p>
+        <p className={`text-sm mt-1 ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>{profileInfo[0].email}</p>
       </div>
       <MdModeEditOutline className={`size-4 absolute top-4 right-4 ${theme === "light" ? "text-gray-500" : "text-gray-400"}`} />
     </div>
