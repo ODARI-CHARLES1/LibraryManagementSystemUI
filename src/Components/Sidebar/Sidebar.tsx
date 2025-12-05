@@ -33,6 +33,7 @@ const Sidebar = () => {
     sideActive,
     mobileMenuOpen,
     setMobileMenuOpen,
+    profileInfo
   } = useContext(appContext);
 
   const handleClick = (index: number) => {
@@ -89,7 +90,27 @@ const Sidebar = () => {
 
           <div className="w-full">
             <ul className="w-full flex flex-col gap-1">
-              {listData.slice(0, listData.length - 2).map((item, index) => (
+           {
+            profileInfo[0].role=="member"?(
+                 listData.slice(0, listData.length - 2).map((item, index) => (
+                (item.name=="Admin"||item.name=="Users")?<></>:
+                <li
+                  key={index}
+                  onClick={() => handleClick(index)}
+                  className={`${
+                    sideActive === index
+                      ? "bg-green-400 text-white"
+                      : theme === "light" 
+                      ? "text-gray-700" 
+                      : "text-gray-400"
+                  } flex items-center w-full gap-4 px-4 py-1 cursor-pointer rounded-xs hover:text-white hover:bg-green-400`}
+                >
+                {item.icon} {(!collapse && item.name)}
+                </li>
+              ))
+            ):
+            (
+                 listData.slice(0, listData.length - 2).map((item, index) => (
                 <li
                   key={index}
                   onClick={() => handleClick(index)}
@@ -103,7 +124,9 @@ const Sidebar = () => {
                 >
                   {item.icon} {!collapse && item.name}
                 </li>
-              ))}
+              ))
+            )
+           }
             </ul>
           </div>
         </div>
