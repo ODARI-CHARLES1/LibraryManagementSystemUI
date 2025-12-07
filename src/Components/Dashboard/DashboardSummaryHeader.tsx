@@ -9,15 +9,13 @@ import appContext from "../../Contexts/AppContext";
 import { useGetBooksQuery } from "../../Features/Books/bookAPI";
 
 const DashboardSummaryHeader = () => {
-  const { theme } = useContext(appContext);
+  const { theme,profileInfo } = useContext(appContext);
   const { data: books, isLoading } = useGetBooksQuery();
-
-  // Calculate statistics from real book data
   const totalBooks = books?.length || 0;
   const availableBooks = books?.filter(book => book.stock_quantity > 0).length || 0;
   const borrowedBooks = totalBooks - availableBooks;
-  const overdueBooks = 0; // This would come from borrow records in a real implementation
-  const lostBooks = 0; // This would come from borrow records in a real implementation
+  const overdueBooks = 0;
+  const lostBooks = 0; 
   const newArrivals = books?.filter(book => {
     const bookDate = new Date(book.created_at);
     const threeMonthsAgo = new Date();
@@ -84,6 +82,9 @@ const DashboardSummaryHeader = () => {
 
   return (
     <div className="w-full flex items-center justify-center lg:justify-between flex-wrap gap-3 md:gap-5">
+      {
+        profileInfo[0].role=="admin"?
+        <>
       {summaryData.map((item, idx) => (
         <div
           key={idx}
@@ -110,6 +111,37 @@ const DashboardSummaryHeader = () => {
           </p>
         </div>
       ))}
+        </>:
+        <>
+        {summaryData.filter(item=>(item.label!=="Total Books"&&item.label!=="New Arrivals")).map((item, idx) => (
+        <div
+          key={idx}
+          className={`rounded-md transition duration-500 w-full sm:w-[calc(50%-0.75rem)]
+          md:w-[calc(33.333%-1rem)] lg:w-[200px] hover:scale-105 cursor-pointer h-30
+          flex items-start p-3 gap-2 justify-center flex-col border-b-4 ${item.border} ${theme === "light" ? "bg-white" : "bg-gray-800"}`}
+        >
+          <div className="w-full flex items-center gap-3">
+            <div className={`p-2 rounded-full ${theme === "light" ? item.bg : item.bgDark}`}>{item.icon}</div>
+            <p className={`text-base ${theme === "light" ? "text-gray-600" : "text-gray-300"}`}>{item.label}</p>
+          </div>
+
+          <p className={`text-xl font-semibold p-1 ${theme === "light" ? "text-gray-900" : "text-gray-100"}`}>
+            {item.value}{" "}
+            <span
+              className={`text-sm rounded-full px-2 ${
+                item.change.startsWith("-")
+                  ? "bg-red-200 text-red-500"
+                  : "bg-green-200 text-green-600"
+              }`}
+            >
+              {item.change}
+            </span>
+          </p>
+        </div>
+      ))}
+        </>
+
+      }
     </div>
   );
 };
