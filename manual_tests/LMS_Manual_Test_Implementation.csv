@@ -3,254 +3,271 @@ Module Name,Login,,,,,,,,,,,,,,,
 Environment,Web Browser,,,,,,,,,,,,,,,
 User Story ID,US_LMS_001,,,,,,,,,,,,,,,
 Created By,Charles,,,,,,,,,,,,,,,
-Creation Date,2025-12-11,,,,,,,,,,,,,,,
-Reviewed By,,,,,,,,,,,,,,,
-Reviewed Date,,,,,,,,,,,,,,,
+Creation Date,12/11/2025,,,,,,,,,,,,,,,
+Reviewed By,,,,,,,,,,,,,,,,
+Reviewed Date,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
 Test Scenario ID,Test Scenario Description,Test Case ID,Test Case Description,Test Steps,Preconditions,Test Data,Post Conditions,Expected Result,Actual Result,Status(Pass, Fail, Blocked, Not Executed),Executed By,Executed Date,Comments (if any)
 TL_TS_001,Verify Admin Login functionality to be redirected user dashboard,TC_TL_001,Enter a valid email & password,"1. Enter Valid email
 2.Enter Valid password
 3. Click on Login button",Application is running at valid URL,,"email: admin@example.com
-password: AdminPass123!",User should be redirected to their respective dashboards,System should display success toast with message: Login successful.,Success toast displayed: "Login successful". User is redirected to Dashboard successfully.,PASS,Charles,2025-12-11,No Comment
+password: AdminPass123!",User should be redirected to their respective dashboards,System should display success toast with message: Login successful.,"Success toast displayed: ""Login successful"". User is redirected to Dashboard successfully.",PASS,Charles,,No Comment,,
 TL_TS_001,Verify User Login functionality to be redirected user dashboard,TC_TL_002,Enter a valid email & invalid password,"1. Enter Valid email
 2.Enter Invalid password
 3. Click on Login button",Application is running at valid URL,,"email: admin@example.com
-password: WrongPass123",Error message: "Invalid email or password",System should display error toast with message: Invalid email or password.,Error toast displayed with message: "Invalid email or password".,PASS,Charles,2025-12-11,No Comment
+password: WrongPass123","Error message: ""Invalid email or password""",System should display error toast with message: Invalid email or password.,"Error toast displayed with message: ""Invalid email or password"".",PASS,Charles,,No Comment,,
 TL_TS_001,Verify User Login functionality to be redirected admin dashboard,TC_TL_003,Enter an invalid email & valid password,"1. Enter Invalid email
 2.Enter Valid password
 3. Click on Login button",Application is running at valid URL,,"email: invalid@example.com
-password: AdminPass123!",Error message: "Invalid email or password",System should display error toast with message: Invalid email or password.,Error toast displayed with message: "Invalid email or password".,PASS,Charles,2025-12-11,No Comment
+password: AdminPass123!","Error message: ""Invalid email or password""",System should display error toast with message: Invalid email or password.,"Error toast displayed with message: ""Invalid email or password"".",PASS,Charles,,No Comment,,
 TL_TS_001,Verify User Login functionality to be redirected user dashboard,TC_TL_004,Enter an invalid email & invalid password,"1. Enter Invalid email
 2.Enter Invalid password
 3. Click on Login button",Application is running at valid URL,,"email: invalid@example.com
-password: WrongPass123",Error message: "Invalid email or password",System should display error toast with message: Invalid email or password.,Error toast displayed with message: "Invalid email or password".,PASS,Charles,2025-12-11,No Comment
+password: WrongPass123","Error message: ""Invalid email or password""",System should display error toast with message: Invalid email or password.,"Error toast displayed with message: ""Invalid email or password"".",PASS,Charles,,No Comment,,
 TL_TS_001,Verify User Login functionality to be redirected user dashboard,TC_TL_005,Leave the email empty and enter a valid password,"1. Leave email empty
 2.Enter Valid password
 3. Click on Login button",Application is running at valid URL,,"email: null
-password: AdminPass123!",Error message: "email is required",System should display error toast with message: email is required.,Error toast displayed with message: "email is required".,PASS,Charles,2025-12-11,No Comment
+password: AdminPass123!","Error message: ""email is required""",System should display error toast with message: email is required.,"Error toast displayed with message: ""email is required"".",PASS,Charles,,No Comment,,
 TL_TS_001,Verify User Login functionality to be redirected user dashboard,TC_TL_006,Leave the password empty and enter a valid email,"1. Enter Valid email
 2.Leave password empty
 3. Click on Login button",Application is running at valid URL,,"email: admin@example.com
-password: null",Error message: "Password is required",System should display error toast with message: password is required.,Error toast displayed with message: "password is required".,PASS,Charles,2025-12-11,No Comment
+password: null","Error message: ""Password is required""",System should display error toast with message: password is required.,"Error toast displayed with message: ""password is required"".",PASS,Charles,,No Comment,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
 Project Name,Library Management System,,,,,,,,,,,,,,,
 Module Name,Books,,,,,,,,,,,,,,,
 Environment,Web Browser,,,,,,,,,,,,,,,
 User Story ID,US_LMS_002,,,,,,,,,,,,,,,
 Created By,Charles,,,,,,,,,,,,,,,
-Creation Date,2025-12-11,,,,,,,,,,,,,,,
-Reviewed By,,,,,,,,,,,,,,,
-Reviewed Date,,,,,,,,,,,,,,,
+Creation Date,12/11/2025,,,,,,,,,,,,,,,
+Reviewed By,,,,,,,,,,,,,,,,
+Reviewed Date,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
 Test Scenario ID,Test Scenario Description,Test Case ID,Test Case Description,Test Steps,Preconditions,Test Data,Post Conditions,Expected Result,Actual Result,Status(Pass, Fail, Blocked, Not Executed),Executed By,Executed Date,Comments (if any)
 TL_TS_002,User should create book with all required fields,TC_BOOK_001,Add new book with valid data,"1. Login as admin
 2. Navigate to Books page
 3. Click + Add Book button
 4. Fill title, author, ISBN, category, quantity
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 User logged in as admin,,"Title: Test Book
 Author: John Doe
 ISBN: 978-3-16-148410-0
 Category: Fiction
-Quantity: 5",Book should be added to system,System should display success toast with message: Book created successfully.,Book created successfully and appears in the books list.,PASS,Charles,2025-12-11,No Comment
+Quantity: 5",Book should be added to system,System should display success toast with message: Book created successfully.,Book created successfully and appears in the books list.,PASS,Charles,,,,,,,,,
 TL_TS_002,User should create book with empty title,TC_BOOK_002,Add book with missing title,"1. Login as admin
 2. Navigate to Books page
 3. Click + Add Book button
 4. Leave title empty, fill other fields
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 User logged in as admin,,"Title: Null
 Author: John Doe
 ISBN: 978-3-16-148410-0
 Category: Fiction
-Quantity: 5",Error message: "Please provide a book title",Validation error: Title is required,,,,
+Quantity: 5","Error message: ""Please provide a book title""",Validation error: Title is required,,,,,,,,,,,,
 TL_TS_002,User should create book without selecting category,TC_BOOK_003,Add book without category,"1. Login as admin
 2. Navigate to Books page
 3. Click + Add Book button
 4. Fill all fields except category
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 User logged in as admin,,"Title: Test Book
 Author: John Doe
 ISBN: 978-3-16-148410-0
 Category: Null
-Quantity: 5",Error message: "Provide a category",Error message: Category must be selected,,,,
+Quantity: 5","Error message: ""Provide a category""",Error message: Category must be selected,,,,,,,,,,,,
 TL_TS_002,User should edit book details,TC_BOOK_004,Edit existing book,"1. Login as admin
 2. Navigate to Books page
 3. Click on an existing book card
 4. Modify title, author, or category
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 Book exists,,"Title: Updated Test Book
 Author: John Doe
-Category: Science",Book details updated successfully,System should display success toast: Edit successful.,Book details updated and changes reflected in the list.,PASS,Charles,2025-12-11,No Comment
+Category: Science",Book details updated successfully,System should display success toast: Edit successful.,Book details updated and changes reflected in the list.,PASS,Charles,,,,,,,,,
 TL_TS_002,User should be able to delete a book,TC_BOOK_005,Delete existing book,"1. Login as admin
 2. Navigate to Books page
 3. Click on an existing book card
 4. Click Delete button
-5. Confirm deletion",Application is running at valid URL
-Book exists,,Click delete,Book removed from the system,System should display success toast: Book deleted successfully.,Book deleted successfully and removed from the list.,PASS,Charles,2025-12-11,No Comment
+5. Confirm deletion",Application is running at valid URL,,,,,,,,,,,
+Book exists,,Click delete,Book removed from the system,System should display success toast: Book deleted successfully.,Book deleted successfully and removed from the list.,PASS,Charles,,,,,,,,,
 TL_TS_002,User should view book details,TC_BOOK_006,View book information,"1. Login as admin
 2. Navigate to Books page
-3. Click on a book card",Application is running at valid URL
-Book exists,,Click view,Book details displayed,Book details modal opens with all information,Book details displayed correctly.,PASS,Charles,2025-12-11,No Comment
+3. Click on a book card",Application is running at valid URL,,,,,,,,,,,
+Book exists,,Click view,Book details displayed,Book details modal opens with all information,Book details displayed correctly.,PASS,Charles,,,,,,,,,
 TL_TS_002,User should create book with invalid ISBN,TC_BOOK_007,Add book with invalid ISBN,"1. Login as admin
 2. Navigate to Books page
 3. Click + Add Book button
 4. Enter invalid ISBN value
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 User logged in as admin,,"Title: Test Book
 Author: John Doe
 ISBN: 12345
 Category: Fiction
-Quantity: 5",Error message: "ISBN invalid",Validation error for ISBN field,,,,
+Quantity: 5","Error message: ""ISBN invalid""",Validation error for ISBN field,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
 Project Name,Library Management System,,,,,,,,,,,,,,,
 Module Name,Users,,,,,,,,,,,,,,,
 Environment,Web Browser,,,,,,,,,,,,,,,
 User Story ID,US_LMS_003,,,,,,,,,,,,,,,
 Created By,Charles,,,,,,,,,,,,,,,
-Creation Date,2025-12-11,,,,,,,,,,,,,,,
-Reviewed By,,,,,,,,,,,,,,,
-Reviewed Date,,,,,,,,,,,,,,,
+Creation Date,12/11/2025,,,,,,,,,,,,,,,
+Reviewed By,,,,,,,,,,,,,,,,
+Reviewed Date,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
 Test Scenario ID,Test Scenario Description,Test Case ID,Test Case Description,Test Steps,Preconditions,Test Data,Post Conditions,Expected Result,Actual Result,Status(Pass, Fail, Blocked, Not Executed),Executed By,Executed Date,Comments (if any)
 TL_TS_003,User should create user with all required fields,TC_USER_001,Add new user with valid data,"1. Login as admin
 2. Navigate to Users page
 3. Click + Add User button
 4. Fill name, email, role, password
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 User logged in as admin,,"Name: Test User
 Email: test@example.com
 Role: Librarian
-Password: TestPass123!",User should be added to system,System should display success toast with message: User created successfully.,User added successfully and appears in the users list.,PASS,Charles,2025-12-11,No Comment
+Password: TestPass123!",User should be added to system,System should display success toast with message: User created successfully.,User added successfully and appears in the users list.,PASS,Charles,,,,,,,,,
 TL_TS_003,User should create user with existing email,TC_USER_002,Add user with duplicate email,"1. Login as admin
 2. Navigate to Users page
 3. Click + Add User button
 4. Enter existing email
-5. Click Save",Application is running at valid URL
-User logged in as admin
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
+User logged in as admin,,,,,,,,,,,,,,,,
 User with email exists,,"Name: Test User
 Email: admin@example.com
 Role: Librarian
-Password: TestPass123!",Error message: "Email already exists",Validation error: Email must be unique,,,,
+Password: TestPass123!","Error message: ""Email already exists""",Validation error: Email must be unique,,,,,,,,,,,,
 TL_TS_003,User should edit user details,TC_USER_003,Edit existing user,"1. Login as admin
 2. Navigate to Users page
 3. Click on an existing user
 4. Modify user details
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 User exists,,"Name: Updated User
-Role: Admin",User details updated successfully,System should display success toast: Edit successful.,User details updated and changes reflected in the list.,PASS,Charles,2025-12-11,No Comment
+Role: Admin",User details updated successfully,System should display success toast: Edit successful.,User details updated and changes reflected in the list.,PASS,Charles,,,,,,,,,
 TL_TS_003,User should be able to delete a user,TC_USER_004,Delete existing user,"1. Login as admin
 2. Navigate to Users page
 3. Click on an existing user
 4. Click Delete button
-5. Confirm deletion",Application is running at valid URL
-User exists,,Click delete,User removed from the system,System should display success toast: User deleted successfully.,User deleted successfully and removed from the list.,PASS,Charles,2025-12-11,No Comment
+5. Confirm deletion",Application is running at valid URL,,,,,,,,,,,
+User exists,,Click delete,User removed from the system,System should display success toast: User deleted successfully.,User deleted successfully and removed from the list.,PASS,Charles,,,,,,,,,
 TL_TS_003,User should create user with invalid email,TC_USER_005,Add user with invalid email,"1. Login as admin
 2. Navigate to Users page
 3. Click + Add User button
 4. Enter invalid email format
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 User logged in as admin,,"Name: Test User
 Email: invalid-email
 Role: Librarian
-Password: TestPass123!",Error message: "Invalid email format",Validation error: Enter a valid email,,,,
+Password: TestPass123!","Error message: ""Invalid email format""",Validation error: Enter a valid email,,,,,,,,,,,,
 TL_TS_003,User should create user with weak password,TC_USER_006,Add user with weak password,"1. Login as admin
 2. Navigate to Users page
 3. Click + Add User button
 4. Enter weak password
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 User logged in as admin,,"Name: Test User
 Email: test@example.com
 Role: Librarian
-Password: 123",Error message: "Password too weak",Validation error: Password must be at least 8 characters,,,,
+Password: 123","Error message: ""Password too weak""",Validation error: Password must be at least 8 characters,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
 Project Name,Library Management System,,,,,,,,,,,,,,,
 Module Name,Borrowing Records,,,,,,,,,,,,,,,
 Environment,Web Browser,,,,,,,,,,,,,,,
 User Story ID,US_LMS_004,,,,,,,,,,,,,,,
 Created By,Charles,,,,,,,,,,,,,,,
-Creation Date,2025-12-11,,,,,,,,,,,,,,,
-Reviewed By,,,,,,,,,,,,,,,
-Reviewed Date,,,,,,,,,,,,,,,
+Creation Date,12/11/2025,,,,,,,,,,,,,,,
+Reviewed By,,,,,,,,,,,,,,,,
+Reviewed Date,,,,,,,,,,,,,,,,
 Test Scenario ID,Test Scenario Description,Test Case ID,Test Case Description,Test Steps,Preconditions,Test Data,Post Conditions,Expected Result,Actual Result,Status(Pass, Fail, Blocked, Not Executed),Executed By,Executed Date,Comments (if any)
 TL_TS_004,User should create borrowing record with all required fields,TC_RECORD_001,Create new borrowing record,"1. Login as librarian
 2. Navigate to Records page
 3. Click + Add Record button
 4. Select user and book
 5. Set due date
-6. Click Save",Application is running at valid URL
-User logged in as librarian
+6. Click Save",Application is running at valid URL,,,,,,,,,,,
+User logged in as librarian,,,,,,,,,,,,,,,,
 Users and books exist,,"User: Test User
 Book: Test Book
-Due Date: [Current + 14 days]",Borrowing record should be created,System should display success toast: Record created successfully.,Record created successfully and appears in the records list.,PASS,Charles,2025-12-11,No Comment
+Due Date: [Current + 14 days]",Borrowing record should be created,System should display success toast: Record created successfully.,Record created successfully and appears in the records list.,PASS,Charles,,,,,,,,,
 TL_TS_004,User should return borrowed book,TC_RECORD_002,Return borrowed book,"1. Login as librarian
 2. Navigate to Records page
 3. Find active record
 4. Click Return button
-5. Confirm return",Application is running at valid URL
-Active borrowing record exists,,Record: Active borrowing record,Record marked as returned,System should display success toast: Return successful.,Record marked as returned and book is available again.,PASS,Charles,2025-12-11,No Comment
+5. Confirm return",Application is running at valid URL,,,,,,,,,,,
+Active borrowing record exists,,Record: Active borrowing record,Record marked as returned,System should display success toast: Return successful.,Record marked as returned and book is available again.,PASS,Charles,,,,,,,,,
 TL_TS_004,User should view borrowing history,TC_RECORD_003,View user borrowing history,"1. Login as librarian
 2. Navigate to Records page
 3. Select user
-4. View history",Application is running at valid URL
-User has borrowing history,,User: Test User,All past and current borrowings displayed,System shows complete borrowing history.,Borrowing history displayed correctly.,PASS,Charles,2025-12-11,No Comment
+4. View history",Application is running at valid URL,,,,,,,,,,,
+User has borrowing history,,User: Test User,All past and current borrowings displayed,System shows complete borrowing history.,Borrowing history displayed correctly.,PASS,Charles,,,,,,,,,
 TL_TS_004,User should create record with unavailable book,TC_RECORD_004,Create record for borrowed book,"1. Login as librarian
 2. Navigate to Records page
 3. Click + Add Record button
 4. Select already borrowed book
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 Book already borrowed,,"User: Test User
-Book: Borrowed Book",Error message: "Book is not available",Validation error: Book must be available,,,,
+Book: Borrowed Book","Error message: ""Book is not available""",Validation error: Book must be available,,,,,,,,,,,,
 TL_TS_004,User should create record with past due date,TC_RECORD_005,Create record with invalid due date,"1. Login as librarian
 2. Navigate to Records page
 3. Click + Add Record button
 4. Set past due date
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 User logged in as librarian,,"User: Test User
 Book: Test Book
-Due Date: [Current - 1 day]",Error message: "Due date must be in the future",Validation error: Invalid due date,,,,
+Due Date: [Current - 1 day]","Error message: ""Due date must be in the future""",Validation error: Invalid due date,,,,,,,,,,,,
 TL_TS_004,User should create record without selecting user,TC_RECORD_006,Create record without user,"1. Login as librarian
 2. Navigate to Records page
 3. Click + Add Record button
 4. Don't select user
-5. Click Save",Application is running at valid URL
+5. Click Save",Application is running at valid URL,,,,,,,,,,,
 User logged in as librarian,,"User: (none selected)
-Book: Test Book",Error message: "User is required",Validation error: User must be selected,,,,
+Book: Test Book","Error message: ""User is required""",Validation error: User must be selected,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
 Project Name,Library Management System,,,,,,,,,,,,,,,
 Module Name,Dashboard,,,,,,,,,,,,,,,
 Environment,Web Browser,,,,,,,,,,,,,,,
 User Story ID,US_LMS_005,,,,,,,,,,,,,,,
 Created By,Charles,,,,,,,,,,,,,,,
-Creation Date,2025-12-11,,,,,,,,,,,,,,,
-Reviewed By,,,,,,,,,,,,,,,
-Reviewed Date,,,,,,,,,,,,,,,
+Creation Date,12/11/2025,,,,,,,,,,,,,,,
+Reviewed By,,,,,,,,,,,,,,,,
+Reviewed Date,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
 Test Scenario ID,Test Scenario Description,Test Case ID,Test Case Description,Test Steps,Preconditions,Test Data,Post Conditions,Expected Result,Actual Result,Status(Pass, Fail, Blocked, Not Executed),Executed By,Executed Date,Comments (if any)
 TL_TS_005,User should access dashboard after login,TC_DASH_001,Access dashboard,"1. Login with valid credentials
-2. Verify redirection to dashboard",Application running
+2. Verify redirection to dashboard",Application running,,,,,,,,,,,
 Valid user account exists,,"Email: admin@example.com
-Password: AdminPass123!",User redirected to dashboard,Dashboard elements visible and functional,Dashboard loaded successfully with all elements visible.,PASS,Charles,2025-12-11,No Comment
+Password: AdminPass123!",User redirected to dashboard,Dashboard elements visible and functional,Dashboard loaded successfully with all elements visible.,PASS,,,,,,,,,,
 TL_TS_005,User should navigate to different sections,TC_DASH_002,Navigate sections,"1. Login as admin
 2. Click on Books section
 3. Click on Users section
-4. Click on Records section",Application running
-User logged in as admin,,None,Navigation works correctly,Correct pages loaded without errors,Navigation between sections works correctly.,PASS,Charles,2025-12-11,No Comment
+4. Click on Records section",Application running,,,,,,,,,,,
+User logged in as admin,,None,Navigation works correctly,Correct pages loaded without errors,Navigation between sections works correctly.,PASS,,,,,,,,,,
 TL_TS_005,User should view dashboard statistics,TC_DASH_003,View statistics,"1. Login as admin
 2. Verify dashboard statistics
-3. Check data accuracy",Application running
-System has data,,None,Statistics displayed correctly,Data matches actual system state,Statistics displayed correctly and match system data.,PASS,Charles,2025-12-11,No Comment
+3. Check data accuracy",Application running,,,,,,,,,,,
+System has data,,None,Statistics displayed correctly,Data matches actual system state,Statistics displayed correctly and match system data.,PASS,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
 Project Name,Library Management System,,,,,,,,,,,,,,,
 Module Name,Error Handling,,,,,,,,,,,,,,,
 Environment,Web Browser,,,,,,,,,,,,,,,
 User Story ID,US_LMS_006,,,,,,,,,,,,,,,
 Created By,Charles,,,,,,,,,,,,,,,
-Creation Date,2025-12-11,,,,,,,,,,,,,,,
-Reviewed By,,,,,,,,,,,,,,,
-Reviewed Date,,,,,,,,,,,,,,,
+Creation Date,12/11/2025,,,,,,,,,,,,,,,
+Reviewed By,,,,,,,,,,,,,,,,
+Reviewed Date,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
 Test Scenario ID,Test Scenario Description,Test Case ID,Test Case Description,Test Steps,Preconditions,Test Data,Post Conditions,Expected Result,Actual Result,Status(Pass, Fail, Blocked, Not Executed),Executed By,Executed Date,Comments (if any)
 TL_TS_006,System should handle network errors,TC_ERROR_001,Network error handling,"1. Disable network connection
 2. Try to login
-3. Observe error message",Application running
+3. Observe error message",Application running,,,,,,,,,,,
 Network disabled,,"Email: admin@example.com
-Password: AdminPass123!",Appropriate error message,User can retry after network restored,Appropriate error message displayed.,PASS,Charles,2025-12-11,No Comment
+Password: AdminPass123!",Appropriate error message,User can retry after network restored,Appropriate error message displayed.,PASS,,,,,,,,,,
 TL_TS_006,System should handle server errors,TC_ERROR_002,Server error handling,"1. Simulate server error
 2. Perform any action
-3. Observe error message",Application running
-Server configured to return errors,,Any action,Appropriate error message,User can retry or contact support,Appropriate error message displayed.,PASS,Charles,2025-12-11,No Comment
+3. Observe error message",Application running,,,,,,,,,,,
+Server configured to return errors,,Any action,Appropriate error message,User can retry or contact support,Appropriate error message displayed.,PASS,,,,,,,,,,
 TL_TS_006,System should handle session timeout,TC_ERROR_003,Session timeout handling,"1. Login successfully
 2. Wait for session timeout
 3. Perform any action
-4. Observe behavior",Application running
-Session timeout configured,,Any action after timeout,Redirect to login page,Appropriate message about session expiration,Redirect to login page with appropriate message.,PASS,Charles,2025-12-11,No Comment
+4. Observe behavior",Application running,,,,,,,,,,,
+Session timeout configured,,Any action after timeout,Redirect to login page,Appropriate message about session expiration,Redirect to login page with appropriate message.,PASS,,,,,,,,,,
