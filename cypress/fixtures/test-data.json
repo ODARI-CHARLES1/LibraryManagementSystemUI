@@ -1,0 +1,91 @@
+{
+  "users": {
+    "admin": {
+      "email": "example555@gmail.com",
+      "password": "odary",
+      "role": "admin",
+      "name": "Admin User"
+    },
+    "librarian": {
+      "email": "librarian@example.com",
+      "password": "password123",
+      "role": "librarian",
+      "name": "Librarian User"
+    },
+    "student": {
+      "email": "student@example.com",
+      "password": "student123",
+      "role": "student",
+      "name": "Student User"
+    },
+    "invalid": {
+      "email": "invalid@example.com",
+      "password": "wrongpassword",
+      "role": "invalid",
+      "name": "Invalid User"
+    }
+  },
+  "books": {
+    "valid": {
+      "title": "Test Book",
+      "author": "Test Author",
+      "isbn": "1234567890",
+      "category": "Fiction"
+    },
+    "invalid": {
+      "title": "",
+      "author": "",
+      "isbn": "123",
+      "category": ""
+    }
+  },
+  "validation": {
+    "invalidEmails": [
+      "invalid-email",
+      "user@",
+      "@domain.com",
+      "user@domain",
+      "user@domain.",
+      "@.com"
+    ],
+    "shortPasswords": [
+      "123",
+      "abc",
+      "1234"
+    ],
+    "validPasswords": [
+      "password123",
+      "test12345",
+      "validpass"
+    ]
+  },
+  "api": {
+    "baseUrl": "http://localhost:5173",
+    "endpoints": {
+      "login": "/auth/login",
+      "books": "/books",
+      "users": "/users",
+      "records": "/records"
+    },
+    "timeout": 10000,
+    "retry": 3
+  },
+  "viewport": {
+    "mobile": {
+      "width": 375,
+      "height": 667
+    },
+    "tablet": {
+      "width": 768,
+      "height": 1024
+    },
+    "desktop": {
+      "width": 1024,
+      "height": 768
+    },
+    "largeDesktop": {
+      "width": 1440,
+      "height": 900
+    }
+  }
+}
