@@ -3,7 +3,7 @@
  * Tests for sidebar, navbar, and other UI elements
  */
 
-import testData from '../../fixtures/test-data.json';
+import testData from '../../fixtures/test-data.json' assert { type: 'json' };
 
 describe('UI Components', () => {
   const { users } = testData;
