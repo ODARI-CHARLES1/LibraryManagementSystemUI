@@ -35,6 +35,32 @@ export interface existingUser {
   password_hash?: string
 }
 
+export interface CreateUserResponse {
+  success: boolean,
+  message?: string,
+  user?: {
+    user_id: number,
+    username: string,
+    email: string,
+    role: 'Admin' | 'Member',
+    created_at: Date,
+    updated_at?: Date
+  }
+}
+
+export interface LoginResponse {
+  success: boolean,
+  data?: {
+    token: string,
+    role: string,
+    username: string,
+    email: string,
+    id: number,
+    created_at: string,
+    updated_at: string
+  }
+}
+
 export interface loginJwtConfig {
   payload: {
     id: number
@@ -81,7 +107,7 @@ export const userApi = createApi({
       }),
     }),
 
-    getUser: builder.query<User[], void>({
+    getUser: builder.query<{ data: User[] }, void>({
       query: () => "api/users",
       providesTags: ["Users"],
     }),

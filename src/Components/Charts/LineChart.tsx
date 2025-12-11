@@ -12,11 +12,11 @@ const DashboardVisualise = () => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const currentMonth = new Date().getMonth();
 
-  const borrowedData = Array(6).fill(0).map((_, i) => {
+  const borrowedData = Array(6).fill(0).map(() => {
     return Math.min(50, Math.max(10, Math.floor(Math.random() * (books?.length || 10))));
   });
 
-  const returnedData = Array(6).fill(0).map((_, i) => {
+  const returnedData = Array(6).fill(0).map(() => {
     return Math.min(40, Math.max(5, Math.floor(Math.random() * (books?.length || 5))));
   });
 

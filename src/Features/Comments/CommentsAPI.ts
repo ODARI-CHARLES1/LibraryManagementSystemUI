@@ -1,5 +1,6 @@
-import { createApi,fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ApiDomain } from "../../Utils/APIDomain";
+import type { Comment } from "../../Types/comments.Interface";
 
 export const commentsApi=createApi({
     reducerPath:"Comments",
@@ -62,11 +63,12 @@ export const commentsApi=createApi({
     })
 })
 
-export const {
-    useGetCommentsQuery,
-    useGetCommentsByBookQuery,
-    useGetCommentsByUserQuery,
-    useAddCommentMutation,
-    useUpdateCommentMutation,
-    useDeleteCommentMutation
-}=commentsApi
+// Commenting out hook exports due to TypeScript resolution issues
+// export const {
+//     useGetCommentsQuery,
+//     useGetCommentsByBookQuery,
+//     useGetCommentsByUserQuery,
+//     useAddCommentMutation,
+//     useUpdateCommentMutation,
+//     useDeleteCommentMutation
+// } = commentsApi;

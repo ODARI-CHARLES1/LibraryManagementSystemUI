@@ -200,7 +200,7 @@ const BorrowRecords = ({ embedded = false }: { embedded?: boolean }) => {
                           className={`w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-400 ${theme === "light" ? "border-gray-300 bg-white text-gray-900" : "border-gray-600 bg-gray-700 text-gray-100"}`}
                         >
                           <option value="">Select User</option>
-                          {users?.map((user: any) => (
+                          {users?.data?.map((user: any) => (
                             <option key={user.user_id} value={user.user_id}>
                               {user.username} ({user.email})
                             </option>
@@ -401,7 +401,7 @@ const BorrowRecords = ({ embedded = false }: { embedded?: boolean }) => {
                   ) : borrowRecords && borrowRecords.length > 0 ? (
                     borrowRecords.map((record: any) => {
                       // Find user and book names
-                      const user = users?.find((u: any) => u.user_id === record.user_id);
+                      const user = users?.data?.find((u: any) => u.user_id === record.user_id);
                       const book = books?.find((b: any) => b.book_id === record.book_id);
 
                       return (

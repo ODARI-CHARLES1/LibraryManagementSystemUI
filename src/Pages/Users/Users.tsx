@@ -37,7 +37,7 @@ const Users = ({ embedded = false }: { embedded?: boolean }) => {
   const [editUser, setEditUser] = useState<User | null>(null);
   const [showForm, setShowForm] = useState(false);
   console.log(typeof(usersData))
-  useEffect(() => { if (usersData) setUsers(usersData.data); }, [usersData]);
+  useEffect(() => { if (usersData) setUsers(Array.isArray(usersData) ? usersData : usersData.data); }, [usersData]);
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     try {

@@ -3,6 +3,8 @@ import appContext from "../../Contexts/AppContext";
 import { borrowRecordsAPI } from "../../Features/Records/borrowRecordsAPI";
 import { useGetBooksQuery } from "../../Features/Books/bookAPI";
 import { userApi } from "../../Features/Auth/userApi";
+import type { User } from "../../Types/users.types";
+import type { Book } from "../../Types/books.Interface";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { LuListFilter } from "react-icons/lu";
 
@@ -46,12 +48,12 @@ const DashboardSummaryTable = () => {
 
   // Get user and book names for display
   const getUserName = (userId: number) => {
-    const user = users?.find((u: any) => u.user_id === userId);
+    const user = users?.data?.find((u: User) => u.user_id === userId);
     return user ? `${user.username} (${user.email})` : `User ${userId}`;
   };
 
   const getBookTitle = (bookId: number) => {
-    const book = books?.find((b: any) => b.book_id === bookId);
+    const book = books?.find((b: Book) => b.book_id === bookId);
     return book ? `${book.title} by ${book.author}` : `Book ${bookId}`;
   };
 

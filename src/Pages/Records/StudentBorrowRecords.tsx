@@ -5,6 +5,8 @@ import Navbar from '../../Components/Navbar/Navbar';
 import appContext from '../../Contexts/AppContext';
 import { borrowRecordsAPI } from "../../Features/Records/borrowRecordsAPI";
 import { useGetBooksQuery } from "../../Features/Books/bookAPI";
+import type { borrowrecords } from "../../Types/borrowrecords.Interface";
+import type { Book } from "../../Types/books.Interface";
 import { toast, ToastContainer } from 'react-toastify';
 import ScaleLoader from "react-spinners/ScaleLoader";
 
@@ -28,9 +30,9 @@ const StudentBorrowRecords = ({ embedded = false }: { embedded?: boolean }) => {
   });
 
   // Filter records for current student only
-  const currentUserId = profileInfo?.user_id;
+  const currentUserId = profileInfo?.[0]?.id;
   const studentBorrowRecords = allBorrowRecords?.filter(
-    (record: any) => record.user_id === currentUserId
+    (record: borrowrecords) => record.user_id === currentUserId
   ) || [];
 
   const handleClear = (borrow_id: number) => {
@@ -38,7 +40,7 @@ const StudentBorrowRecords = ({ embedded = false }: { embedded?: boolean }) => {
     setShowClearForm(true);
   };
 
-  const onClearSubmit = async (data: any) => {
+  const onClearSubmit = async (data: { return_date: string, status: string }) => {
     try {
       if (!clearRecordId) return;
 
@@ -74,7 +76,7 @@ const StudentBorrowRecords = ({ embedded = false }: { embedded?: boolean }) => {
   };
 
   const getBookTitle = (bookId: number) => {
-    const book = books?.find((b: any) => b.book_id === bookId);
+    const book = books?.find((b: Book) => b.book_id === bookId);
     return book ? `${book.title} by ${book.author}` : `Book ${bookId}`;
   };
 
@@ -180,7 +182,7 @@ const StudentBorrowRecords = ({ embedded = false }: { embedded?: boolean }) => {
                       </td>
                     </tr>
                   ) : studentBorrowRecords.length > 0 ? (
-                    studentBorrowRecords.map((record: any) => {
+                    studentBorrowRecords.map((record: borrowrecords) => {
                       const dueDate = new Date(record.due_date);
                       const currentDate = new Date();
                       const isOverdue = currentDate > dueDate && record.status !== "Returned";

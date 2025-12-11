@@ -6,6 +6,7 @@ import Sidebar from '../../Components/Sidebar/Sidebar';
 import Navbar from '../../Components/Navbar/Navbar';
 import appContext from '../../Contexts/AppContext';
 import { userApi } from "../../Features/Auth/userApi";
+import type { User } from "../../Types/users.types";
 import { toast, ToastContainer } from 'react-toastify';
 import ScaleLoader from "react-spinners/ScaleLoader";
 
@@ -35,15 +36,15 @@ const Admins = ({ embedded = false }: { embedded?: boolean }) => {
   const [updateUser] = userApi.useUpdateUserMutation();
   const [deleteUser] = userApi.useDeleteUserMutation();
 
-  const [admins, setAdmins] = useState<any[]>([]);
-  const [editAdmin, setEditAdmin] = useState<any>(null);
+  const [admins, setAdmins] = useState<User[]>([]);
+  const [editAdmin, setEditAdmin] = useState<User | null>(null);
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     if (usersData) {
       // Filter only admin users - handle both array and object with data property
-      const userArray = Array.isArray(usersData) ? usersData : usersData.data || [];
-      const adminUsers = userArray.filter((user: any) => user.role === "Admin");
+      const userArray = Array.isArray(usersData) ? usersData : (usersData as { data: User[] })?.data || [];
+      const adminUsers = userArray.filter((user: User) => user.role === "Admin");
       setAdmins(adminUsers);
     }
   }, [usersData]);
@@ -74,7 +75,7 @@ const Admins = ({ embedded = false }: { embedded?: boolean }) => {
     }
   };
 
-  const handleEdit = (admin: any) => {
+  const handleEdit = (admin: User) => {
     setEditAdmin(admin);
     reset({
       username: admin.username,
