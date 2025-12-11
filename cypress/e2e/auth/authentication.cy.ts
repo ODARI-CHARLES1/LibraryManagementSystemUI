@@ -3,7 +3,7 @@
  * Tests for login, logout, and session management
  */
 
-import testData from '../../fixtures/test-data.json';
+import testData from '../../fixtures/test-data.json' assert { type: 'json' };
 
 describe('Authentication', () => {
   const { users } = testData;

@@ -46,3 +46,18 @@ it('User Navigation to dashboard sub pages', function() {
     cy.get('#root div:nth-child(2) > h3.font-medium').click();
     
 });
+
+it('navigation', function() {
+    cy.visit("http://localhost:5173")
+});
+
+it('test', function() {
+    cy.visit("http://localhost:5173/")
+    cy.get('[name="email"]').click();
+    cy.get('#root div:nth-child(2)').click();
+    cy.get('[name="password"]').click();
+    cy.get('[name="email"]').click();
+    cy.get('[name="email"]').type('example555@gmail.com');
+    cy.get('[name="password"]').type('odary');
+    cy.get('#root button.flex').click();
+});

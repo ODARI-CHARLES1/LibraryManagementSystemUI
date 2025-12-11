@@ -3,7 +3,7 @@
  * Tests for error scenarios and edge cases
  */
 
-import testData from '../fixtures/test-data.json';
+import testData from '../fixtures/test-data.json' assert { type: 'json' };
 
 describe('Error Handling', () => {
   const { users } = testData;

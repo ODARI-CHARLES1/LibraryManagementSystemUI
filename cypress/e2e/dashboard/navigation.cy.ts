@@ -3,7 +3,7 @@
  * Tests for dashboard section navigation and state management
  */
 
-import testData from '../../fixtures/test-data.json';
+import testData from '../../fixtures/test-data.json' assert { type: 'json' };
 
 describe('Dashboard Navigation', () => {
   const { users } = testData;
